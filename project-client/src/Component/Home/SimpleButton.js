@@ -3,7 +3,7 @@ import { Button } from 'primereact/button';
 
 const SimpleButton=(props)=> {
     return (
-        <div className="card flex justify-content-center">
+        <div >
             <Button label={props.label} />
         </div>
     )

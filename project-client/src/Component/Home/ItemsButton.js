@@ -12,7 +12,7 @@ const ItemsButton=(props)=> {
         });
     return (
       <>
-        <div className="card flex justify-content-center">
+        <div >
             <Toast ref={toast}></Toast>
             <SplitButton label={props.label}  model={items} />
         </div>
