@@ -70,25 +70,27 @@ const Login=()=> {
 //                       <InputText
 //                           id="value"
 //                           name="value"
-//                           value={formik.values.value}
+//                           value={value}
 //                           onChange={(e) => {
-//                               formik.setFieldValue('value', e.target.value);
+//                               setValue(e.value);
 //                           }}
 //                       />
 //                       <label htmlFor="input_value">Name</label>
 //                   </span>
+  
 //                   <br/>
   
 //                   <span className="p-float-label">
-//                   <InputNumber inputId="withoutgrouping" id="number-input" value={value} onValueChange={(e) => setValue(e.value)} useGrouping={false}/>
+//                   <InputNumber inputId="withoutgrouping" id="number-input" name="Id" value={formik.values.Id} onValueChange={(e) => formik.setFieldValue('Id', e.target.value)} useGrouping={false}/>
 //                   <label htmlFor="number-input">Identity</label>
 //               </span>
 //               <br/>
   
 //               <span className="p-float-label">
-//               <Password value={value} onChange={(e) => setValue(e.target.value)} toggleMask />
+//               <Password id="Password" name="Password" value={formik.values.Password} onChange={(e) => formik.setFieldValue('Password', e.target.value)} toggleMask />
 //               <label htmlFor="password">Password</label>
-//               </span><br/><br/><br/>
+//               </span>
+//               <br/><br/><br/>
 //               {/* <div>
 //                   <h3>new family?</h3>
 //               </div> */}
