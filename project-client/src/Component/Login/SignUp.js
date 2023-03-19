@@ -1,102 +1,119 @@
-// import React, { useState } from "react";
-// import { Calendar } from 'primereact/calendar';
+import React, { useRef,useState }from 'react'; 
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { useFormik } from 'formik';
+import { InputText } from "primereact/inputtext";
+import { Toast } from 'primereact/toast';
+import { classNames } from 'primereact/utils';
+import { InputNumber } from 'primereact/inputnumber';
+import { Password } from 'primereact/password';
 
-// export default function BasicDemo() {
-//     const [date, setDate] = useState(null);
-
-//     return (
-//         <div className="card flex justify-content-center">
-//             <Calendar value={date} onChange={(e) => setDate(e.value)} mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
-//         </div>
-//     )
-// }
-
-
-// export default function FloatLabelDemo() {
-//     const [value, setValue] = useState('');
-//     const [date, setDate] = useState(null);
-//     const phone = 'phone'
-
-//     return (
-//         <>
-//         <div className="card flex justify-content-center">
-//             <span className="p-float-label">
-//                 <InputText id="username" value={value} onChange={(e) => setValue(e.target.value)} />
-//                 <label htmlFor="username">Username</label>
-//             </span>
-//         </div>
-//         <br/>
-//         <div className="card flex justify-content-center">
-//             <span className="p-float-label">
-//                 <InputText id="username" value={value} onChange={(e) => setValue(e.target.value)} />
-//                 <label htmlFor="username">Username</label>
-//             </span>
-//         </div>
-
-
-
-
-//         <br/>
-//         <div className="card flex justify-content-center">
-//             <Calendar value={date} onChange={(e) => setDate(e.value)} mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
-//         </div>
-//         <br/>
-//         <div className="card flex justify-content-center">
-//             <InputMask value={value} onChange={(e) => setValue(e.target.value)} mask={phone=='phone'?"99-9999999":"999-999-9999" }placeholder="99-999999"/>
-//         </div>
-
-//         </>
-//     )
-// }
-
-
-//*********************************************
-// import React, { useState } from "react";
-// import { InputText } from "primereact/inputtext";
-// import { Calendar } from 'primereact/calendar';
-// import { InputNumber } from 'primereact/inputnumber';
-// import { InputMask } from "primereact/inputmask";
-
-// export default function FloatLabelDemo() {
-//     const [value, setValue] = useState('');
-//     const [value1, setValue1] = useState();
-//     const [date, setDate] = useState(null);
-//     const phone = 'phone'
-
-//     return (
-//         <>
-//         <div className="card flex justify-content-center">
-//         <form className="flex flex-column gap-2">
-//             <span className="p-float-label">
-//                 <InputText id="username" value={value} onChange={(e) => setValue(e.target.value)} />
-//                 <label htmlFor="username">User name</label>
-//             </span>
-//             <br/>
-//             <span className="p-float-label">
-//                 <InputText id="userfamilyname" value={value} onChange={(e) => setValue(e.target.value)} />
-//                 <label htmlFor="username">User family name</label>
-//             </span>
-//             <br/>
-//             <span className="p-float-label">               
-//                 <InputNumber inputId="withoutgrouping" value={value} onValueChange={(e) => setValue(e.value)} useGrouping={false} />
-//                 <label htmlFor="withoutgrouping">Id</label>
-//             </span>
-//             <br/>
-//             <Calendar value={date} onChange={(e) => setDate(e.value)} mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy"/>
-//             <br/>
-//             <InputMask value={value} onChange={(e) => setValue(e.target.value)} mask={phone=='phone'?"99-9999999":"999-999-9999"} placeholder="99-999999"/>  
-//             <br/>
-//             <span className="p-float-label">
-//                 <InputText id="email" value={value} onChange={(e) => setValue(e.target.value)} />
-//                 <label htmlFor="username">Email</label>
-//             </span>
-//             <br/>
-//             <span className="p-float-label">
-//                 <InputText id="city" value={value} onChange={(e) => setValue(e.target.value)} />
-//                 <label htmlFor="username">City</label>
-//             </span> 
-//         </form>
-//         </div>
-//         </>
-//     )
-// }
+export default function AdvancedDemo() {
+        const toast = useRef(null);
+        const [value, setValue] = useState();
+      
+        const show = () => {
+            toast.current.show({ severity: 'success', summary: 'Form Submitted', detail: formik.values.value });
+        };
+      
+        const formik = useFormik({
+            initialValues: {
+                Id: '',
+                FamilyName:'',
+                Password:''
+            },
+            validate: (data) => {
+                let errors = {};    
+                if (!data.Id) {
+                    errors.Id = 'Identity is required.';
+                }
+                if (!data.FamilyName) {
+                    errors.FamilyName = 'FamilyName is required.';
+                }
+                if (!data.Password) {
+                    errors.Password = 'Password is required.';
+                }  
+                return errors;
+            },
+            onSubmit: (data) => {
+                data && show(data);
+                formik.resetForm();
+            }
+        });
+      
+          const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
+      
+          const getFormErrorMessage = (name) => {
+              return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
+          };
+    // const header = (
+    //     <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+    // );
+    // const footer = (
+    //     <div className="flex flex-wrap justify-content-end gap-2">
+    //         <Button label="Save" icon="pi pi-check" />
+    //         <Button label="Cancel" icon="pi pi-times" className="p-button-outlined p-button-secondary" />
+    //     </div>
+    // );
+    return (
+        <div className="card flex justify-content-center">
+            <Card className="md:w-25rem">
+               <form onSubmit={formik.handleSubmit} className="flex flex-column gap-2">
+               <span className="p-float-label">
+                      <Toast ref={toast} />
+                       <InputText
+                          id="value"
+                          name="value"
+                          value={value}
+                          onChange={(e) => {
+                              setValue(e.value);
+                          }}
+                      />
+                      <label htmlFor="input_value">Name</label>
+                  </span>
+  
+                  <br/>
+               <span className="p-float-label">
+                  <InputNumber inputId="withoutgrouping" id="number-input" name="Id" value={formik.values.Id} onValueChange={(e) => formik.setFieldValue('Id', e.target.value)} useGrouping={false}/>
+                  <label htmlFor="number-input">Identity</label>
+              </span>
+              <br/>
+                   <span className="p-float-label">
+                      <Toast ref={toast} />
+                       <InputText
+                          id="value"
+                          name="FamilyName"
+                          value={formik.values.FamilyName}
+                          onChange={(e) => {
+                              setValue(e.value);
+                          }}
+                      />
+                      <label htmlFor="input_value">FamilyName</label>
+                  </span>
+              <br/>
+              <span className="p-float-label">
+              <Password id="Password" name="Password" value={formik.values.Password} onChange={(e) => formik.setFieldValue('Password', e.target.value)} toggleMask />
+              <label htmlFor="password">Password</label>
+              </span>
+              <br/><br/><br/>
+              {/* <div>
+                  <h3>new family?</h3>
+              </div> */}
+              <div className="card flex justify-content-center">
+              <Button label="update details" />
+              </div>
+              <br/><br/><br/>
+                  {/* {getFormErrorMessage('value')} */}
+                  {getFormErrorMessage('Id')}
+                  {getFormErrorMessage('FamilyName')}
+                  {getFormErrorMessage('Password')}
+                  <Button type="submit" label="Login" />
+              </form>
+                {/* <p className="m-0"> title="Title" subTitle="Subtitle" footer={footer} header={header}
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
+                    numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+                </p> */}
+            </Card>
+        </div>
+    )
+}
