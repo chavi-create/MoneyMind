@@ -5,6 +5,7 @@ import SignUp from './Component/Login/SignUp';
 import Login from './Component/Login/Login';
 import Home from './Component/Home';
 import HomeManager from './Component/Manager/HomeManager'
+import UpdateDetails from './Component/userDetails/UpdateDetails';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path='/login' element={<Login />}></Route>
           <Route exact path='/' element={<Home />}></Route>
           <Route exact path='/HomeManager' element={<HomeManager />}></Route>
+          <Route exact path='/UpdateDetails' element={<UpdateDetails />}></Route>
         </Routes>
       </Router>
 
