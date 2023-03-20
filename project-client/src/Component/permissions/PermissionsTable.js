@@ -2,14 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { CustomerService } from './service/CustomerService';
+// import { CustomerService } from './service/CustomerService';
 
-export default function SubHeaderRowGroupDemo() {
+export default function PermissionsTable() {
     const [customers, setCustomers] = useState([]);
 
-    useEffect(() => {
-        CustomerService.getCustomersMedium().then((data) => setCustomers(data));
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // useEffect(() => {
+    //     CustomerService.getCustomersMedium().then((data) => setCustomers(data));
+    // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const headerTemplate = (data) => {
         return (
