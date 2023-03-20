@@ -54,7 +54,7 @@ export default function CellEditingDemo() {
                 if (isPositiveInteger(newValue)) rowData[field] = newValue;
                 else event.preventDefault();
                 break;
-
+/////
             default:
                 if (newValue.trim().length > 0) rowData[field] = newValue;
                 else event.preventDefault();
