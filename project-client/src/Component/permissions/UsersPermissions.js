@@ -5,7 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
-import UseAxiosById from '../../Hooks/UseAxiosById';
+import UseAxiosById from '../../hooks/UseAxiosById';
 // import { ProductService } from './service/ProductService';
 
 export default function UsersPermissions() {

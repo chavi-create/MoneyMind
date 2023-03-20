@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';   
 import SimpleButton from './Home/SimpleButton';
 import ItemsButton from './Home/ItemsButton';
-import UseAxiosGet from '../Hooks/UseAxiosGet';
+import UseAxiosGet from '../hooks/UseAxiosGet';
 import {useNavigate} from 'react-router-dom';
 import UsersPermissions from './permissions/UsersPermissions';
+import PermissionsTable from './permissions/PermissionsTable'
 
 function Home() {
   const{data,loading,refetch,error}=UseAxiosGet('users/');
   useEffect(()=>{console.log('data',data);},[data])
   const navigate = useNavigate();
-    const items1 = [{label:'permissions',icon:<i class="pi pi-lock-open"></i>,command:()=>{navigate('/HomeManager')}}];
+    const items1 = [{label:'permissions',icon:<i class="pi pi-lock-open"></i>,command:()=>{navigate('/UpdateDetails')}}];
     const items2 = [{label:'view expenses',icon:<i class="pi pi-arrow-circle-up"></i>},
                     {label:'view incomes',icon:<i class="pi pi-arrow-circle-down"></i>}];
     const family = "Halbershtam"
