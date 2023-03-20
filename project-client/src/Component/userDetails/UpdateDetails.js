@@ -18,57 +18,34 @@ export default function UpdateDetails() {
   const [date, setDate] = useState(null);
   const phone = 'phone';
 
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const countries = [
-    { name: 'Australia', code: 'AU' },
-    { name: 'Brazil', code: 'BR' },
-    { name: 'China', code: 'CN' },
-    { name: 'Egypt', code: 'EG' },
-    { name: 'Israel', code: 'IL' },
-    { name: 'France', code: 'FR' },
-    { name: 'Germany', code: 'DE' },
-    { name: 'India', code: 'IN' },
-    { name: 'Japan', code: 'JP' },
-    { name: 'Spain', code: 'ES' },
-    { name: 'United States', code: 'US' },
+  const [selectedCity, setSelectedCity] = useState(null);
+  const cities = [
+    { name: 'Jerusalem' },
+    { name: 'Hifha', code: 'IL' },
+    { name: 'Acko', code: 'IL' },
+    { name: 'Teberia', code: 'IL' },
+    { name: 'Beher-sheva', code: 'IL' },
   ];
-
-  const selectedCountryTemplate = (option, props) => {
+  const selectedCityTemplate = (option, props) => {
     if (option) {
       return (
         <div className="flex align-items-center">
-          <img
-            alt={option.name}
-            src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+          {/* <img
+            alt={option.name}           
             className={`mr-2 flag flag-${option.code.toLowerCase()}`}
-            style={{ width: '18px' }}
-          />
+            // style={{ width: '18px' }}
+          /> */}
           <div>{option.name}</div>
         </div>
       );
     }
-
     return <span>{props.placeholder}</span>;
-  };
-
-  const countryOptionTemplate = (option) => {
-    return (
-      <div className="flex align-items-center">
-        <img
-          alt={option.name}
-          src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
-          className={`mr-2 flag flag-${option.code.toLowerCase()}`}
-          style={{ width: '18px' }}
-        />
-        <div>{option.name}</div>
-      </div>
-    );
   };
 
   return (
     <>
       <div className="card flex justify-content-center">
-        <Card title="Update details">
+        <Card title="Update details" style={{ width: '350px' }}>
           <p className="m-0">
             <form className="flex flex-column gap-2">
               <span className="p-float-label">
@@ -100,6 +77,7 @@ export default function UpdateDetails() {
               </span>
               <br />
               <Calendar
+                style={{ width: '180px' }}
                 value={date}
                 onChange={(e) => setDate(e.value)}
                 mask="99/99/9999"
@@ -108,38 +86,57 @@ export default function UpdateDetails() {
               />
               <br />
               <InputMask
+                style={{ width: '180px' } }
                 value={value3}
                 onChange={(e) => setValue3(e.target.value)}
                 mask={phone == 'phone' ? '99-9999999' : '000-000-0000'}
                 placeholder="00-000000"
               />
               <br />
+              {/* <label>Email</label> */}
               <span className="p-float-label">
-                <i class="pi pi-envelope" />
+                {/* <i class="pi pi-envelope" /> */}
                 <InputText
                   id="email"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                  title="Invalid email address"
                   value={value4}
                   onChange={(e) => setValue4(e.target.value)}
                 />
-                <label htmlFor="email" icon="pi pi-envelope">Email</label>
+                <label htmlFor="email" icon="pi pi-envelope">
+                  Email
+                </label>
+              </span>
+              <br />
+              {/* <span className="p-float-label">
+                <Dropdown
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.value)}
+                  options={cities}
+                  optionLabel="name"
+                  placeholder="Select a City"
+                  className="w-full md:w-14rem"
+                />
+            //   </span> **:)*/}
+              <span className="fp-float-label">
+                <Dropdown
+                  style={{ width: '180px' }}
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.value)}
+                  options={cities}
+                  optionLabel="name"
+                  placeholder="Select a City"
+                  filter
+                  valueTemplate={selectedCityTemplate}
+                />
               </span>
               <br />
               <span className="card flex justify-content-center">
-                <Dropdown
-                  value={selectedCountry}
-                  onChange={(e) => setSelectedCountry(e.value)}
-                  options={countries}
-                  optionLabel="name"
-                  placeholder="Country"
-                  filter
-                  valueTemplate={selectedCountryTemplate}
-                  itemTemplate={countryOptionTemplate}
-                  className="w-full md:w-14rem"
-                />
+                <Button label="Submit" />
               </span>
-              <div className="card flex justify-content-center">
+              {/* <div className="card flex justify-content-center">
                 <Button label="Managing permissions and children's information" />
-              </div>
+              </div> */}
             </form>
           </p>
         </Card>
