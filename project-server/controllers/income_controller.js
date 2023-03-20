@@ -29,12 +29,12 @@ exports.getIncomeById = async(req, res) => {
 };
 
 exports.getIncomesSum = async(req, res) => {
-  const fid = req.params.id;
+  const f_id = req.params.id;
   const month = req.body.month;
   const year = req.body.year;
-  if(!fid) 
+  if(!f_id) 
     return res.status(400).json({message: 'not entried id'});
-  const incomesSum = await IncomeDB.getIncomesSum(fid,month,year);
+  const incomesSum = await IncomeDB.getIncomesSum(f_id,month,year);
   var _totalSum=0;
   incomesSum.forEach(e => {
     _totalSum+=e.dataValues['sumOfMoney'];

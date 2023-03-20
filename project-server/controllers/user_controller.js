@@ -116,7 +116,7 @@ exports.getUsersPermission = async(req, res) => {
     var fName = e.dataValues['firstName'];
     var pName = e.dataValues['permission'].dataValues['permissionName'];
     // console.log("eeeeee"+e.dataValues['user'].dataValues['permit_levels'])
-    permit_users_table.push({firstName:fName,identity:id,permissionName:pName});
+    permit_users_table.push({identity:id,firstName:fName,permissionName:pName});
     // permit_users_table.push({firstName:fName,identity:id,permitId:e.dataValues['permitId']});
   });
   if(permit_users_table) 

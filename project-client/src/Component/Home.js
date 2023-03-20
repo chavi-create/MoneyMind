@@ -3,6 +3,7 @@ import SimpleButton from './Home/SimpleButton';
 import ItemsButton from './Home/ItemsButton';
 import UseAxiosGet from '../Hooks/UseAxiosGet';
 import {useNavigate} from 'react-router-dom';
+import UsersPermissions from './permissions/UsersPermissions';
 
 function Home() {
   const{data,loading,refetch,error}=UseAxiosGet('users/');

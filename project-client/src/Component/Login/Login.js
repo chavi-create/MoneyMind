@@ -1,24 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { useFormik } from 'formik';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-
-import { useState } from "react";
-import { useFormik } from 'formik';
-import { InputText } from "primereact/inputtext";
 import { Toast } from 'primereact/toast';
-import { classNames } from 'primereact/utils';
+import { InputText } from "primereact/inputtext";
 import { InputNumber } from 'primereact/inputnumber';
 import { Password } from 'primereact/password';
 
 const Login = () => {
-
   const toast = useRef(null);
   const [value, setValue] = useState();
-
   const show = () => {
     toast.current.show({ severity: 'success', summary: 'Form Submitted', detail: formik.values.value });
   };
-
   const formik = useFormik({
     initialValues: {
       Id: '',
@@ -45,15 +39,6 @@ const Login = () => {
   const getFormErrorMessage = (name) => {
     return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
   };
-  // const header = (
-  //     <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
-  // );
-  // const footer = (
-  //     <div className="flex flex-wrap justify-content-end gap-2">
-  //         <Button label="Save" icon="pi pi-check" />
-  //         <Button label="Cancel" icon="pi pi-times" className="p-button-outlined p-button-secondary" />
-  //     </div>
-  // );
 
   return (
     <div className="card flex justify-content-center">
@@ -85,9 +70,6 @@ const Login = () => {
             <label htmlFor="password">Password</label>
           </span>
           <br /><br /><br />
-          {/* <div>
-                    <h3>new family?</h3>
-                </div> */}
           <div className="card flex justify-content-center">
             <Button label="new family" />
           </div>
@@ -97,10 +79,6 @@ const Login = () => {
           {getFormErrorMessage('Password')}
           <Button type="submit" label="Login" />
         </form>
-        {/* <p className="m-0"> title="Title" subTitle="Subtitle" footer={footer} header={header}
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae 
-                      numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-                  </p> */}
       </Card>
     </div>
   )
