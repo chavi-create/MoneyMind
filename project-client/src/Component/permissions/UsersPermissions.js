@@ -5,12 +5,17 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
-import UseAxiosById from '../../hooks/UseAxiosById';
+import UseAxiosById from '../../Hooks/UseAxiosById';
+import UseAxiosGet from '../../Hooks/UseAxiosGet';
+
 // import { ProductService } from './service/ProductService';
 
 export default function UsersPermissions() {
     // const [products, setProducts] = useState(null);
-    const [permissions] = useState(['edit', 'view', 'non']);
+    // const [permissions] = useState(['edit', 'view', 'non']);
+
+    const permissions=UseAxiosGet('permissions/');
+    useEffect(()=>{console.log('dataPermission',permissions.data);},[permissions.data])
 
     const{data,loading,refetch,error}=UseAxiosById('users/permissions',"111111111");
     useEffect(()=>{console.log('data',data);},[data])
@@ -19,14 +24,15 @@ export default function UsersPermissions() {
     //     ProductService.getProductsMini().then((data) => setProducts(data));
     // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // const onRowEditComplete = (e) => {
-    //     let _products = [...products];
-    //     let { newData, index } = e;
+    const onRowEditComplete = (e) => {
+        console.log("onRowEditComplete",e);
+        // let _products = [...products];
+        // let { newData, index } = e;
 
-    //     _products[index] = newData;
+        // _products[index] = newData;
 
-    //     setProducts(_products);
-    // };
+        // setProducts(_products);
+    };
 
     const textEditor = (options) => {
         return <InputText type="text" value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />;
@@ -40,7 +46,7 @@ export default function UsersPermissions() {
         return (
             <Dropdown
                 value={options.value}
-                options={permissions}
+                options={permissions.data.map(e=>e.permissionName)}
                 onChange={(e) => options.editorCallback(e.value)}
                 placeholder="Permission"
                 itemTemplate={(option) => {
@@ -49,10 +55,10 @@ export default function UsersPermissions() {
             />
         );
     };
-//  onRowEditComplete={onRowEditComplete}
+
     return ( 
         <div className="card p-fluid">
-            <DataTable value={data} editMode="row" dataKey="id" tableStyle={{ minWidth: '35rem' }}>
+            <DataTable value={data} editMode="row" dataKey="id" onRowEditComplete={onRowEditComplete} tableStyle={{ minWidth: '35rem' }}>
                 <Column field="identity" header="Id" editor={(options) => idEditor(options)} style={{ width: '30%' }}></Column>
                 <Column field="firstName" header="First Name" editor={(options) => textEditor(options)} style={{ width: '30%' }}></Column>
                 <Column field="permissionName" header="Permission" editor={(options) => permissionEditor(options)} style={{ width: '30%' }}></Column>

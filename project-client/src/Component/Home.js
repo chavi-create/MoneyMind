@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';   
 import SimpleButton from './Home/SimpleButton';
 import ItemsButton from './Home/ItemsButton';
-import UseAxiosGet from '../hooks/UseAxiosGet';
+import UseAxiosGet from '../Hooks/UseAxiosGet';
 import {useNavigate} from 'react-router-dom';
 import UsersPermissions from './permissions/UsersPermissions';
 import PermissionsTable from './permissions/PermissionsTable'
