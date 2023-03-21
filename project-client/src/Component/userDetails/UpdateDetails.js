@@ -84,7 +84,7 @@ export default function UpdateDetails() {
                 placeholder="00/00/0000"
                 slotChar="mm/dd/yyyy"
               />
-              <br />
+              <br /><br />
               <InputMask
                 style={{ width: '180px' } }
                 value={value3}
@@ -92,7 +92,7 @@ export default function UpdateDetails() {
                 mask={phone == 'phone' ? '99-9999999' : '000-000-0000'}
                 placeholder="00-000000"
               />
-              <br />
+              <br /><br />
               {/* <label>Email</label> */}
               <span className="p-float-label">
                 {/* <i class="pi pi-envelope" /> */}
@@ -130,7 +130,7 @@ export default function UpdateDetails() {
                   valueTemplate={selectedCityTemplate}
                 />
               </span>
-              <br />
+              <br /><br /><br />
               <span className="card flex justify-content-center">
                 <Button label="Submit" />
               </span>

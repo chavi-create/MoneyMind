@@ -9,6 +9,7 @@ import HomeManager from './Component/Manager/HomeManager'
 import UpdateDetails from './Component/userDetails/UpdateDetails';
 import UsersPermissions from './Component/permissions/UsersPermissions';
 import PermissionsTable from './Component/permissions/PermissionsTable';
+import Charity from './expenses/charity';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
+          <Route exact path='/Charity' element={<Charity />}></Route>
         </Routes>
       
     </>
