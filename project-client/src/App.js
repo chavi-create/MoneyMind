@@ -2,13 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import SignUp from './Component/Login/SignUp';
-import Login from './Component/Login/Login';
-import Home from './Component/Home';
-import HomeManager from './Component/Manager/HomeManager'
-import UpdateDetails from './Component/userDetails/UpdateDetails';
-import UsersPermissions from './Component/permissions/UsersPermissions';
-import PermissionsTable from './Component/permissions/PermissionsTable';
+import SignUp from './components/login/SignUp';
+import Login from './components/login/Login';
+import Home from './components/Home';
+import HomeManager from './components/manager/HomeManager'
+import UpdateDetails from './components/userDetails/UpdateDetails';
+import UsersPermissions from './components/permissions/UsersPermissions';
+import PermissionsTable from './components/permissions/PermissionsTable';
 
 
 function App() {

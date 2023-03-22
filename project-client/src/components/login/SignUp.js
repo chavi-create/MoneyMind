@@ -6,6 +6,7 @@ import { Toast } from 'primereact/toast';
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from 'primereact/inputnumber';
 import { Password } from 'primereact/password';
+import axios from 'axios';
 
 export default function SignUp() {
     const toast = useRef(null);
@@ -15,12 +16,16 @@ export default function SignUp() {
     };
     const formik = useFormik({
         initialValues: {
+            FirstName: '',
             Id: '',
             FamilyName: '',
             Password: ''
         },
         validate: (data) => {
             let errors = {};
+            if (!data.FirstName) {
+                errors.FirstName = 'FirstName is required.';
+            }
             if (!data.Id) {
                 errors.Id = 'Identity is required.';
             }
@@ -33,6 +38,7 @@ export default function SignUp() {
             return errors;
         },
         onSubmit: (data) => {
+            console.log("data", data);
             data && show(data);
             formik.resetForm();
         }
@@ -50,8 +56,8 @@ export default function SignUp() {
                     <span className="p-float-label">
                         <Toast ref={toast} />
                         <InputText
-                            id="value"
-                            name="value"
+                            id="firstName"
+                            name="FirstName"
                             value={value}
                             onChange={(e) => {
                                 setValue(e.value);
@@ -67,9 +73,9 @@ export default function SignUp() {
                     </span>
                     <br />
                     <span className="p-float-label">
-                        <Toast ref={toast} />
+                        {/* <Toast ref={toast} /> */}
                         <InputText
-                            id="value"
+                            id="lastName"
                             name="FamilyName"
                             value={formik.values.FamilyName}
                             onChange={(e) => {
@@ -84,11 +90,12 @@ export default function SignUp() {
                         <label htmlFor="password">Password</label>
                     </span>
                     <br /><br /><br />
-                    <div className="card flex justify-content-center">
+                    {/* <div className="card flex justify-content-center">
                         <Button label="update details" />
-                    </div>
+                    </div> */}
                     <br /><br /><br />
                     {/* {getFormErrorMessage('value')} */}
+                    {getFormErrorMessage('FirstName')}
                     {getFormErrorMessage('Id')}
                     {getFormErrorMessage('FamilyName')}
                     {getFormErrorMessage('Password')}

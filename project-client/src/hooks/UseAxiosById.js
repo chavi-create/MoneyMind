@@ -6,7 +6,7 @@ const UseAxiosById = (url,id) => {
         `http://localhost:8000/${url}/${id}`
     )
 
-    useEffect(() => { console.log('error:😢', error) }, [error]);
+    useEffect(() => { console.log('error(getById):😢', error) }, [error]);
     return { data, loading, refetch, error }
 }
 

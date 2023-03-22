@@ -6,9 +6,10 @@ exports.createNewUser = async(req,res)=>{
     // const userToInsert = req.body;
     const id = req.body.identity;
     const fName = req.body.firstName;
+    const perId = req.body.permissionId;
     const user = await UserDB.getUserById(req.params.id);
     const _familyId = user.dataValues['familyId'];
-    const userToInsert = {identity:id,firstName:fName,familyId:_familyId,familyHead:0,permissionId:8};
+    const userToInsert = {identity:id,firstName:fName,familyId:_familyId,familyHead:0,permissionId:perId};
     if(!userToInsert) 
       return res.status(400).json({message: 'not entried data'});
     const newUser = await UserDB.createNewUser(userToInsert);
