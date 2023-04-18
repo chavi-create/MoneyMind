@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { CustomerService } from './service';
-import UseAxiosGet from '../../Hooks/UseAxiosGet';
+import UseAxiosGet from '../../hooks/UseAxiosGet';
 
 export default function PermissionsTable() {
   const [customers, setCustomers] = useState([]);

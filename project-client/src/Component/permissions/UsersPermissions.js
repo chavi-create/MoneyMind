@@ -5,27 +5,73 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
-import UseAxiosById from '../../Hooks/UseAxiosById';
-import UseAxiosGet from '../../Hooks/UseAxiosGet';
+import UseAxiosById from '../../hooks/UseAxiosById';
+import UseAxiosGet from '../../hooks/UseAxiosGet';
+import axios from 'axios';
+import _ from 'lodash';//isEqual
 
 // import { ProductService } from './service/ProductService';
 
 export default function UsersPermissions() {
     // const [products, setProducts] = useState(null);
-    // const [permissions] = useState(['edit', 'view', 'non']);
+    // const [perUserss,setPerUsers] = useState(null);
+    
+    const permissions = UseAxiosGet('permissions/');
+    useEffect(() => { console.log('dataPermission', permissions.data); }, [permissions.data])
+    
+    // useEffect(()=>{
+    //     UseAxiosGet('permissions/').then((data)=>setPermissions(data)).catch((err)=>console.log(err));
+    // },[])
 
-    const permissions=UseAxiosGet('permissions/');
-    useEffect(()=>{console.log('dataPermission',permissions.data);},[permissions.data])
+    const perUser = { identity: null, firstName: '', permission: "" };
+    const { data, loading, refetch, error } = UseAxiosById('users/permissions', "111111111");
+    useEffect(() => { console.log('data', data); if (data) data.push(perUser); }, [data])
 
-    const{data,loading,refetch,error}=UseAxiosById('users/permissions',"111111111");
-    useEffect(()=>{console.log('data',data);},[data])
+    async function getPermissionId(per) {
+        console.log(per);
+        let perObj = await permissions.data.filter((e) => { return e.permissionName == per })[0];
+        console.log("perObj: " + perObj);
+        // if(perObj.idpermission)
+        return perObj.idpermission;
+    }
+
 
     // useEffect(() => {
     //     ProductService.getProductsMini().then((data) => setProducts(data));
     // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const onRowEditComplete = (e) => {
-        console.log("onRowEditComplete",e);
+    const onRowEditComplete = async (e) => {
+        console.log("onRowEditComplete", e);
+        let eData = e.data;
+        let newD = e.newData;
+        // console.log(!_.isEqual(eData,newD));
+        if (eData.identity != null) {
+            if (newD.identity != eData.identity)
+                if (window.confirm("you want delete user " + eData.identity + " and replace him with new user " + newD.identity)) {
+                    let aaa = await axios.delete(`http://localhost:8000/users/${eData.identity}`);
+                    console.log("delete aaa: " + aaa);
+                }
+            if (newD.identity == eData.identity) {
+                let obj = {};
+                if (newD.permission != eData.permission) {
+                    let perId = await getPermissionId(newD.permission);
+                    obj['permissionId'] = perId;
+                }
+                if (newD.firstName != eData.firstName) {
+                    obj['firstName'] = newD.firstName;
+                }
+                console.log(obj);
+                let ccc = await axios.put(`http://localhost:8000/users/${eData.identity}`, obj);
+                console.log("put ccc: " + ccc);
+            }
+        }
+        if (eData.identity == null) {
+            let perId = await getPermissionId(newD.permission);
+            let obj = { identity: newD.identity, firstName: newD.firstName, permission: perId };
+            let bbb = await axios.post(`http://localhost:8000/users/${111111111}`, obj);
+            console.log("post bbb: " + bbb);
+        }
+
         // let _products = [...products];
         // let { newData, index } = e;
 
@@ -46,7 +92,7 @@ export default function UsersPermissions() {
         return (
             <Dropdown
                 value={options.value}
-                options={permissions.data.map(e=>e.permissionName)}
+                options={permissions.data.map(e => e.permissionName)}
                 onChange={(e) => options.editorCallback(e.value)}
                 placeholder="Permission"
                 itemTemplate={(option) => {
@@ -56,12 +102,12 @@ export default function UsersPermissions() {
         );
     };
 
-    return ( 
+    return (
         <div className="card p-fluid">
-            <DataTable value={data} editMode="row" dataKey="id" onRowEditComplete={onRowEditComplete} tableStyle={{ minWidth: '35rem' }}>
+            <DataTable value={data} editMode="row" dataKey="pers" onRowEditComplete={onRowEditComplete} tableStyle={{ minWidth: '35rem' }}>
                 <Column field="identity" header="Id" editor={(options) => idEditor(options)} style={{ width: '30%' }}></Column>
                 <Column field="firstName" header="First Name" editor={(options) => textEditor(options)} style={{ width: '30%' }}></Column>
-                <Column field="permissionName" header="Permission" editor={(options) => permissionEditor(options)} style={{ width: '30%' }}></Column>
+                <Column field="permission" header="Permission" editor={(options) => permissionEditor(options)} style={{ width: '30%' }}></Column>
                 <Column rowEditor headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }}></Column>
             </DataTable>
         </div>
