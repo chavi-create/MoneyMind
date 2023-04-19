@@ -10,22 +10,20 @@ import UseAxiosGet from '../../hooks/UseAxiosGet';
 import axios from 'axios';
 import _ from 'lodash';//isEqual
 
-// import { ProductService } from './service/ProductService';
-
 export default function UsersPermissions() {
-    // const [products, setProducts] = useState(null);
-    // const [perUserss,setPerUsers] = useState(null);
-    
+    const [perUsers, setPerUsers] = useState(null);
+
+    const { data, loading, refetch, error } = UseAxiosById('users/permissions', "111111111");
+
     const permissions = UseAxiosGet('permissions/');
     useEffect(() => { console.log('dataPermission', permissions.data); }, [permissions.data])
-    
-    // useEffect(()=>{
-    //     UseAxiosGet('permissions/').then((data)=>setPermissions(data)).catch((err)=>console.log(err));
-    // },[])
 
     const perUser = { identity: null, firstName: '', permission: "" };
-    const { data, loading, refetch, error } = UseAxiosById('users/permissions', "111111111");
-    useEffect(() => { console.log('data', data); if (data) data.push(perUser); }, [data])
+    useEffect(() => {
+        console.log('data', data);
+        if (data) 
+            setPerUsers(data)
+    }, [data])
 
     async function getPermissionId(per) {
         console.log(per);
@@ -35,10 +33,9 @@ export default function UsersPermissions() {
         return perObj.idpermission;
     }
 
-
-    // useEffect(() => {
-    //     ProductService.getProductsMini().then((data) => setProducts(data));
-    // }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    function addUser() {
+        setPerUsers([...perUsers, perUser]);
+    }
 
     const onRowEditComplete = async (e) => {
         console.log("onRowEditComplete", e);
@@ -72,12 +69,7 @@ export default function UsersPermissions() {
             console.log("post bbb: " + bbb);
         }
 
-        // let _products = [...products];
-        // let { newData, index } = e;
-
-        // _products[index] = newData;
-
-        // setProducts(_products);
+        refetch();
     };
 
     const textEditor = (options) => {
@@ -104,12 +96,19 @@ export default function UsersPermissions() {
 
     return (
         <div className="card p-fluid">
-            <DataTable value={data} editMode="row" dataKey="pers" onRowEditComplete={onRowEditComplete} tableStyle={{ minWidth: '35rem' }}>
+            {loading ? "loading...." : <DataTable value={perUsers} editMode="row" dataKey="pers" onRowEditComplete={onRowEditComplete} tableStyle={{ minWidth: '35rem' }}>
                 <Column field="identity" header="Id" editor={(options) => idEditor(options)} style={{ width: '30%' }}></Column>
                 <Column field="firstName" header="First Name" editor={(options) => textEditor(options)} style={{ width: '30%' }}></Column>
                 <Column field="permission" header="Permission" editor={(options) => permissionEditor(options)} style={{ width: '30%' }}></Column>
                 <Column rowEditor headerStyle={{ width: '10%', minWidth: '8rem' }} bodyStyle={{ textAlign: 'center' }}></Column>
-            </DataTable>
+            </DataTable>}
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+                <button onClick={addUser} >add user</button>
+            </div>
         </div>
     );
 }
