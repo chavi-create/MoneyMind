@@ -23,7 +23,7 @@ function Home() {
       <ItemsButton label = "view details" items = {items2}/><br/><br/><br/>
       <SimpleButton label = "add income" /><br/><br/><br/>
       <SimpleButton label = "add expense" /><br/><br/><br/>
-      <SimpleButton label = "charity"/><br/><br/><br/>
+      <SimpleButton label = "charity" /><br/><br/><br/>
       </div>
       </>
     );
