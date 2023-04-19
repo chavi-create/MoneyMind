@@ -20,6 +20,7 @@ function App() {
           <Route exact path='/login' element={<Login />}></Route>
           <Route exact path='/' element={<Home />}></Route>
           <Route exact path='/homeManager' element={<HomeManager />}></Route>
+          <Route exact path='/customers' element={<CustomersTable />}></Route>
           <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
