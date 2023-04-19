@@ -7,8 +7,9 @@ import { Button } from 'primereact/button';
 import { Tag } from 'primereact/tag';
 import { Toast } from 'primereact/toast';
 import UseAxiosGet from '../../../hooks/UseAxiosGet'
+import UseAxiosById from '../../../hooks/UseAxiosById';
 
-export default function RowExpansionDemo() {
+export default function CustomersTable() {
     const [products, setProducts] = useState([]);
     const [expandedRows, setExpandedRows] = useState(null);
     const toast = useRef(null);
@@ -43,88 +44,95 @@ export default function RowExpansionDemo() {
         setExpandedRows(null);
     };
 
-    const formatCurrency = (value) => {
-        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    };
+    // const formatCurrency = (value) => {
+    //     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    // };
 
-    const amountBodyTemplate = (rowData) => {
-        return formatCurrency(rowData.amount);
-    };
+    // const amountBodyTemplate = (rowData) => {
+    //     return formatCurrency(rowData.amount);
+    // };
 
-    const statusOrderBodyTemplate = (rowData) => {
-        return <Tag value={rowData.status.toLowerCase()} severity={getOrderSeverity(rowData)}></Tag>;
-    };
+    // const statusOrderBodyTemplate = (rowData) => {
+    //     return <Tag value={rowData.status.toLowerCase()} severity={getOrderSeverity(rowData)}></Tag>;
+    // };
 
-    const searchBodyTemplate = () => {
-        return <Button icon="pi pi-search" />;
-    };
+    // const searchBodyTemplate = () => {
+    //     return <Button icon="pi pi-search" />;
+    // };
 
-    const imageBodyTemplate = (rowData) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} width="64px" className="shadow-4" />;
-    };
+    // const imageBodyTemplate = (rowData) => {
+    //     return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} width="64px" className="shadow-4" />;
+    // };
 
-    const priceBodyTemplate = (rowData) => {
-        return formatCurrency(rowData.price);
-    };
+    // const priceBodyTemplate = (rowData) => {
+    //     return formatCurrency(rowData.price);
+    // };
 
-    const ratingBodyTemplate = (rowData) => {
-        return <Rating value={rowData.rating} readOnly cancel={false} />;
-    };
+    // const ratingBodyTemplate = (rowData) => {
+    //     return <Rating value={rowData.rating} readOnly cancel={false} />;
+    // };
 
-    const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.inventoryStatus} severity={getProductSeverity(rowData)}></Tag>;
-    };
+    // const statusBodyTemplate = (rowData) => {
+    //     return <Tag value={rowData.inventoryStatus} severity={getProductSeverity(rowData)}></Tag>;
+    // };
 
-    const getProductSeverity = (product) => {
-        switch (product.inventoryStatus) {
-            case 'INSTOCK':
-                return 'success';
+    // const getProductSeverity = (product) => {
+    //     switch (product.inventoryStatus) {
+    //         case 'INSTOCK':
+    //             return 'success';
 
-            case 'LOWSTOCK':
-                return 'warning';
+    //         case 'LOWSTOCK':
+    //             return 'warning';
 
-            case 'OUTOFSTOCK':
-                return 'danger';
+    //         case 'OUTOFSTOCK':
+    //             return 'danger';
 
-            default:
-                return null;
-        }
-    };
+    //         default:
+    //             return null;
+    //     }
+    // };
 
-    const getOrderSeverity = (order) => {
-        switch (order.status) {
-            case 'DELIVERED':
-                return 'success';
+    // const getOrderSeverity = (order) => {
+    //     switch (order.status) {
+    //         case 'DELIVERED':
+    //             return 'success';
 
-            case 'CANCELLED':
-                return 'danger';
+    //         case 'CANCELLED':
+    //             return 'danger';
 
-            case 'PENDING':
-                return 'warning';
+    //         case 'PENDING':
+    //             return 'warning';
 
-            case 'RETURNED':
-                return 'info';
+    //         case 'RETURNED':
+    //             return 'info';
 
-            default:
-                return null;
-        }
-    };
+    //         default:
+    //             return null;
+    //     }
+    // };
 
     const allowExpansion = (rowData) => {
-        return rowData.orders.length > 0;
+        // return rowData.orders.length > 0;
+        return true;
     };
 
     const rowExpansionTemplate = (data) => {
+        const familyUsers = UseAxiosById('manager/headusers/users',data.idfamily);
+        // useEffect(() => {
+        //     console.log('data', data);
+        //     if (familyUsers.data) 
+        //         setProducts(familyUsers.data)
+        // }, [familyUsers.data])
         return (
             <div className="p-3">
-                <h5>Orders for {data.name}</h5>
-                <DataTable value={data.orders}>
-                    <Column field="id" header="Id" ></Column>
-                    <Column field="customer" header="Customer"></Column>
-                    <Column field="date" header="Date"></Column>
-                    <Column field="amount" header="Amount" body={amountBodyTemplate}></Column>
-                    <Column field="status" header="Status" body={statusOrderBodyTemplate}></Column>
-                    <Column headerStyle={{ width: '4rem' }} body={searchBodyTemplate}></Column>
+                <h5>family {data.familyName}</h5>
+                <DataTable value={familyUsers.data}>
+                    <Column field="firstName" header="firstName" ></Column>
+                    <Column field="age" header="age"></Column>
+                    {/* <Column field="date" header="Date"></Column> */}
+                    {/* <Column field="amount" header="Amount" body={amountBodyTemplate}></Column> */}
+                    {/* <Column field="status" header="Status" body={statusOrderBodyTemplate}></Column> */}
+                    {/* <Column headerStyle={{ width: '4rem' }} body={searchBodyTemplate}></Column> */}
                 </DataTable>
             </div>
         );
@@ -146,10 +154,10 @@ export default function RowExpansionDemo() {
                 <Column expander={allowExpansion} style={{ width: '5rem' }} />
                 <Column field="idfamily" header="idfamily"/>
                 {/* <Column header="Image" body={imageBodyTemplate} /> */}
-                <Column field="familyName" header="familyName" body={priceBodyTemplate} />
+                 <Column field="familyName" header="familyName"  />{/*body={priceBodyTemplate} */}
                 <Column field="city" header="city"/>
-                <Column field="pelephone" header="pelephone" body={ratingBodyTemplate} />
-                <Column field="email" header="email" body={statusBodyTemplate} />
+                <Column field="pelephone" header="pelephone" />{/* body={ratingBodyTemplate}  */}
+                <Column field="email" header="email" />{/* body={statusBodyTemplate} */}
             </DataTable>
         </div>
     );

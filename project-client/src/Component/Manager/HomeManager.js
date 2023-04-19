@@ -1,6 +1,6 @@
 import React from 'react';   
-import ItemsButton from '../Home/ItemsButton';
-import SimpleButton from '../Home/SimpleButton';
+import ItemsButton from '../home/ItemsButton';
+import SimpleButton from '../home/SimpleButton';
 
 function HomeManeger() {
     const items1 = [{label:'cities',icon:<i class="pi pi-globe"></i>},
