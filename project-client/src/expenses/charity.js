@@ -5,26 +5,54 @@ import { Column } from 'primereact/column';
 import { Card } from 'primereact/card';
 import { InputNumber } from 'primereact/inputnumber';
 import { Messages } from 'primereact/messages';
-import UseAxiosGet from '../hooks/UseAxiosGet';
+import UseAxiosById from '../hooks/UseAxiosById';
+import axios from 'axios'
+
+
+// async function fetchData() {
+
+// }
+// useEffect(() => {
+//   fetchData();
+// }, []);
 
 export default function Charity() {
-//   const [products, setProducts] = useState([]);
+  //   const [products, setProducts] = useState([]);
   const columns = [
     { field: 'price', header: 'Price' },
     { field: 'name', header: 'Charitable institution' },
   ];
   const [value, setValue] = useState('0');
   const msgs = useRef(null);
+  async function getData() {
+    try {
+      var dt = new Date();
+      console.log(dt);
+      console.log(dt.getMonth()+1);
+      console.log(dt.getFullYear());
+      
+      const res = await axios.get('http://localhost:8000/expenses/charity/1', {
+        params: {
+          month: dt.getMonth(),
+          year: dt.getFullYear()
+        }
+      });
+      console.log("res"+res);
+    } catch (error) {
+      console.log(error);
+    }
+    //  return res.data;
+  };
 
-  const{data,loading,refetch,error}=UseAxiosGet('charity/');
-  useEffect(()=>{console.log('data',data);},[data])
+  // const{data,loading,refetch,error}=UseAxiosById('expenses/charity',"1");
+  //   useEffect(()=>{console.log('data',data);},[data])
 
-//   const{data,loading,refetch,error}=UseAxiosGet('permissions_processes/');
-//   useEffect(()=>{console.log('data',data);},[data])
 
-//   useEffect(() => {
-//     ProductService.getProductsMini().then((data) => setProducts(data));
-//   }, []);
+  // const [permissions] = useState(['edit', 'view', 'non']);
+
+  // const{data,loading,refetch,error}=UseAxiosById('users/permissions',"111111111");
+  // useEffect(()=>{console.log('data',data);},[data])
+
 
   useEffect(() => {
     //   if(value)
@@ -56,7 +84,7 @@ export default function Charity() {
       <Card title="Charity 💰💲" style={{ width: '350px' }}>
         <br /> <br />
         {/* <label><label/> */}
-        <DataTable value={data}>
+        <DataTable value={getData()}>
           {columns.map((col, i) => (
             <Column key={col.field} field={col.field} header={col.header} />
           ))}
