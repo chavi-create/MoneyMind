@@ -6,9 +6,10 @@ exports.createNewUser = async(req,res)=>{
     // const userToInsert = req.body;
     const id = req.body.identity;
     const fName = req.body.firstName;
+    const perId = req.body.permission;
     const user = await UserDB.getUserById(req.params.id);
     const _familyId = user.dataValues['familyId'];
-    const userToInsert = {identity:id,firstName:fName,familyId:_familyId,familyHead:0,permissionId:8};
+    const userToInsert = {identity:id,firstName:fName,familyId:_familyId,familyHead:0,permissionId:perId};
     if(!userToInsert) 
       return res.status(400).json({message: 'not entried data'});
     const newUser = await UserDB.createNewUser(userToInsert);
@@ -116,7 +117,7 @@ exports.getUsersPermission = async(req, res) => {
     var fName = e.dataValues['firstName'];
     var pName = e.dataValues['permission'].dataValues['permissionName'];
     // console.log("eeeeee"+e.dataValues['user'].dataValues['permit_levels'])
-    permit_users_table.push({identity:id,firstName:fName,permissionName:pName});
+    permit_users_table.push({identity:id,firstName:fName,permission:pName});
     // permit_users_table.push({firstName:fName,identity:id,permitId:e.dataValues['permitId']});
   });
   if(permit_users_table) 

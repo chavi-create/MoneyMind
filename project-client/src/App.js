@@ -14,8 +14,7 @@ import CustomersTable from './component/manager/customers/CustomersTable';
 
 function App() {
   return (
-    <>
-      
+    <>  
         <Routes>
           <Route exact path='/signup' element={<SignUp />}></Route>
           <Route exact path='/login' element={<Login />}></Route>
@@ -25,8 +24,7 @@ function App() {
           <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
-        </Routes>
-      
+        </Routes>    
     </>
   );
 }

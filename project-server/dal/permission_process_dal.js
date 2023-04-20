@@ -8,7 +8,7 @@ const createNewPermission_process = async(permission_processToInsert)=>{
 const getPermissionsProcesses = async(id)=>{
     return await Permission_process.findAll({include:[{model:db.permissions,attributes:['idpermission','permissionName']},
                                                       {model:db.processes,attributes:['idprocess','processDescription']}],
-                                                      attributes:[]});
+                                                      attributes:['permissionId'],group: ['permissionId']});
 }
 
 // const getPermissionByIdProcess = async(id)=>{
