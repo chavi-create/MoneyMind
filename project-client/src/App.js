@@ -10,6 +10,7 @@ import UpdateDetails from './Component/userDetails/UpdateDetails';
 import UsersPermissions from './Component/permissions/UsersPermissions';
 import PermissionsTable from './Component/permissions/PermissionsTable';
 import AddIncome from './Component/addDetails/AddIncome';
+import ManuallyIncome from './Component/addDetails/ManuallyIncome';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
           <Route exact path='/AddIncome' element={<AddIncome />}></Route>
+          <Route exact path='/ManuallyIncome' element={<ManuallyIncome />}></Route>
         </Routes>
       
     </>

@@ -23,7 +23,7 @@ const AddIncome = () => {
     return (
         <Card title="Welcome!" footer={footer} header={header} className="md:w-25rem" style={{ overflowY: "auto", "margin": "2%", "width": "95%", "height": "95%" }}>
             <p className="m-0">
-                <h4>Please take a picture of the store sign to your right:</h4>
+                <h4>Please take a picture of the income:</h4>
                 {/* <iframe src="https://example.com/camera-pro-iframe" allow="camera;"/> */}
 
                 {!image ? <><Camera ref={camera} aspectRatio={8 / 5} />
