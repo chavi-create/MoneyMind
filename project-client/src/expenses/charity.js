@@ -33,11 +33,11 @@ export default function Charity() {
       
       const res = await axios.get('http://localhost:8000/expenses/charity/1', {
         params: {
-          month: dt.getMonth(),
+          month: 1,//dt.getMonth(),
           year: dt.getFullYear()
         }
       });
-      console.log("res"+res);
+      console.log("res",res);
     } catch (error) {
       console.log(error);
     }
