@@ -8,6 +8,7 @@ import { Tag } from 'primereact/tag';
 import { Toast } from 'primereact/toast';
 import UseAxiosGet from '../../../hooks/UseAxiosGet'
 import UseAxiosById from '../../../hooks/UseAxiosById';
+import axios from 'axios';
 
 export default function CustomersTable() {
     const [products, setProducts] = useState([]);
@@ -44,7 +45,77 @@ export default function CustomersTable() {
         setExpandedRows(null);
     };
 
-    // const formatCurrency = (value) => {
+    const allowExpansion = (rowData) => {
+        // return rowData.orders.length > 0;
+        return true;
+    };
+
+    // const rowExpansionTemplate = async(data) => {
+    //         // console.log("dataexpan...",data);
+    //     // const fData = await axios.get(`http://localhost:8000/manager/headusers/users/${data.idfamily}`);
+    //     // console.log(fData);
+
+    //     return (
+    //         <div className="p-3">
+    //             <h5>family {data.familyName}</h5> <DataTable value={fdata}>
+                //     <Column field="firstName" header="firstName" ></Column>
+                //     <Column field="age" header="age"></Column>
+                //     {/* <Column field="date" header="Date"></Column> */}
+                //     {/* <Column field="amount" header="Amount" body={amountBodyTemplate}></Column> */}
+                //     {/* <Column field="status" header="Status" body={statusOrderBodyTemplate}></Column> */}
+                //     {/* <Column headerStyle={{ width: '4rem' }} body={searchBodyTemplate}></Column> */}
+                // </DataTable>
+    //         </div>
+    //     );
+    // };
+    const rowExpansionTemplate =async (data) => {
+        const fData = await axios.get(`http://localhost:8000/manager/headusers/users/${data.idfamily}`);
+        console.log(fData.data);
+        return (
+            <div className="p-3">
+                <h5>Orders for {data.familyName}</h5>
+                <DataTable value={fData.data}>
+                     <Column field="firstName" header="firstName" ></Column>
+                     <Column field="age" header="age"></Column>
+                </DataTable>
+            </div>
+        );
+    };
+    const header = (
+        <div className="flex flex-wrap justify-content-end gap-2">
+            <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
+            <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
+        </div>
+    );
+
+    return (
+        <div className="card">
+            <Toast ref={toast} />
+            <DataTable value={products} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
+                    onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
+                    dataKey="id" header={header} tableStyle={{ minWidth: '60rem' }}>
+                <Column expander={allowExpansion} style={{ width: '5rem' }} />
+                {/* <Column field="idfamily" header="idfamily"/> */}
+                {/* <Column header="Image" body={imageBodyTemplate} /> */}
+                 <Column field="familyName" header="familyName"  />{/*body={priceBodyTemplate} */}
+                <Column field="city" header="city"/>
+                <Column field="pelephone" header="pelephone" />{/* body={ratingBodyTemplate}  */}
+                <Column field="email" header="email" />{/* body={statusBodyTemplate} */}
+            </DataTable>
+        </div>
+    );
+}
+
+
+
+
+
+
+
+
+
+
+   // const formatCurrency = (value) => {
     //     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     // };
 
@@ -110,55 +181,3 @@ export default function CustomersTable() {
     //             return null;
     //     }
     // };
-
-    const allowExpansion = (rowData) => {
-        // return rowData.orders.length > 0;
-        return true;
-    };
-
-    const rowExpansionTemplate = (data) => {
-        const familyUsers = UseAxiosById('manager/headusers/users',data.idfamily);
-        // useEffect(() => {
-        //     console.log('data', data);
-        //     if (familyUsers.data) 
-        //         setProducts(familyUsers.data)
-        // }, [familyUsers.data])
-        return (
-            <div className="p-3">
-                <h5>family {data.familyName}</h5>
-                <DataTable value={familyUsers.data}>
-                    <Column field="firstName" header="firstName" ></Column>
-                    <Column field="age" header="age"></Column>
-                    {/* <Column field="date" header="Date"></Column> */}
-                    {/* <Column field="amount" header="Amount" body={amountBodyTemplate}></Column> */}
-                    {/* <Column field="status" header="Status" body={statusOrderBodyTemplate}></Column> */}
-                    {/* <Column headerStyle={{ width: '4rem' }} body={searchBodyTemplate}></Column> */}
-                </DataTable>
-            </div>
-        );
-    };
-
-    const header = (
-        <div className="flex flex-wrap justify-content-end gap-2">
-            <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
-            <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
-        </div>
-    );
-
-    return (
-        <div className="card">
-            <Toast ref={toast} />
-            <DataTable value={products} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
-                    onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
-                    dataKey="id" header={header} tableStyle={{ minWidth: '60rem' }}>
-                <Column expander={allowExpansion} style={{ width: '5rem' }} />
-                <Column field="idfamily" header="idfamily"/>
-                {/* <Column header="Image" body={imageBodyTemplate} /> */}
-                 <Column field="familyName" header="familyName"  />{/*body={priceBodyTemplate} */}
-                <Column field="city" header="city"/>
-                <Column field="pelephone" header="pelephone" />{/* body={ratingBodyTemplate}  */}
-                <Column field="email" header="email" />{/* body={statusBodyTemplate} */}
-            </DataTable>
-        </div>
-    );
-}
