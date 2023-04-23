@@ -9,7 +9,7 @@ import HomeManager from './Component/Manager/HomeManager'
 import UpdateDetails from './Component/userDetails/UpdateDetails';
 import UsersPermissions from './Component/permissions/UsersPermissions';
 import PermissionsTable from './Component/permissions/PermissionsTable';
-import AddIncome from './Component/addDetails/AddIncome';
+import CameraIncome from './Component/addDetails/CameraIncome';
 import ManuallyIncome from './Component/addDetails/ManuallyIncome';
 
 
@@ -25,7 +25,7 @@ function App() {
           <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
-          <Route exact path='/AddIncome' element={<AddIncome />}></Route>
+          <Route exact path='/CameraIncome' element={<CameraIncome />}></Route>
           <Route exact path='/ManuallyIncome' element={<ManuallyIncome />}></Route>
         </Routes>
       
