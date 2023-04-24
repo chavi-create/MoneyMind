@@ -5,6 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
+import { Button } from 'primereact/button';
 import UseAxiosById from '../../hooks/UseAxiosById';
 import UseAxiosGet from '../../hooks/UseAxiosGet';
 import axios from 'axios';
@@ -101,7 +102,10 @@ export default function UsersPermissions() {
                 justifyContent: "center",
                 alignItems: "center",
             }}>
-                <button onClick={addUser} >add user</button>
+                <div className="card flex justify-content-center">
+                        <Button label="add user" onClick={addUser}/>
+                    </div>
+                {/* <button onClick={addUser} >add user</button> */}
             </div>
         </div>
     );
