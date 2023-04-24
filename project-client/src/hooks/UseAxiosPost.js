@@ -6,8 +6,9 @@ export const UseAxiosPost = async (url, details) => {
     try {
         const res = await axios.post(`http://localhost:8000/${url}`, details);
         console.log(res);
+        return res;
     }
     catch (err) {
-        console.error(`error ${err}`);
+        console.error(`error😒 ${err}`);
     }
 }
