@@ -5,6 +5,7 @@ import UseAxiosGet from '../hooks/UseAxiosGet';
 import {useNavigate} from 'react-router-dom';
 import UsersPermissions from './permissions/UsersPermissions';
 import PermissionsTable from './permissions/PermissionsTable'
+import { Card } from 'primereact/card';
 
 function Home() {
   const{data,loading,refetch,error}=UseAxiosGet('users/');
@@ -20,11 +21,13 @@ function Home() {
       <h1>Hello {family} family</h1>
       <h2>You can do many operations:</h2>
       <div className="card flex justify-content-center" style={{padding:'200px'}}>
+      <Card className="md:w-25rem">
       <ItemsButton label = "update details" items = {items1} onClick={onClick1}/><br/><br/><br/>
       <ItemsButton label = "view details" items = {items2}/><br/><br/><br/>
       <SimpleButton label = "add income" /><br/><br/><br/>
       <SimpleButton label = "add expense" /><br/><br/><br/>
       <SimpleButton label = "charity"/><br/><br/><br/>
+      </Card>
       </div>
       </>
     );

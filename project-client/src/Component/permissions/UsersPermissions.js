@@ -62,12 +62,6 @@ export default function UsersPermissions() {
                 console.log("put ccc: " + ccc);
             }
         }
-        if (eData.identity == null || newD.identity != eData.identity) {
-            let perId = await getPermissionId(newD.permission);
-            let obj = { identity: newD.identity, firstName: newD.firstName, permission: perId };
-            let bbb = await axios.post(`http://localhost:8000/users/${111111111}`, obj);
-            console.log("post bbb: " + bbb);
-        }
 
         refetch();
     };
