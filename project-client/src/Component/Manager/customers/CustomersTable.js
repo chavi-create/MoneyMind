@@ -13,6 +13,8 @@ import axios from 'axios';
 export default function CustomersTable() {
     const [products, setProducts] = useState([]);
     const [expandedRows, setExpandedRows] = useState(null);
+    const [id, setId] = useState(null);
+    const [data1, setData1] = useState(null);
     const toast = useRef(null);
 
     const { data, loading, refetch, error } = UseAxiosGet('manager/headusers/');
@@ -21,6 +23,19 @@ export default function CustomersTable() {
         if (data) 
             setProducts(data)
     }, [data])
+    useEffect(() => {
+       if(id!==null)
+       {
+        debugger
+        let fData=[]
+        const fetchd=async()=>{
+debugger
+             fData = await axios.get(`http://localhost:8000/manager/headusers/users/${1}`);
+        }
+        fetchd()
+        setData1(fData)
+       }
+    }, [id])
     // useEffect(() => {
     //     ProductService.getProductsWithOrdersSmall().then((data) => setProducts(data));
     // }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -68,17 +83,20 @@ export default function CustomersTable() {
     //         </div>
     //     );
     // };
-    const rowExpansionTemplate =async (data) => {
-        const fData = await axios.get(`http://localhost:8000/manager/headusers/users/${data.idfamily}`);
-        console.log(fData.data);
+    const rowExpansionTemplate = (data) => {
+        // debugger
+        setId(data.idfamily)
+        // 
+        // console.log(fData.data);
         return (
-            <div className="p-3">
-                <h5>Orders for {data.familyName}</h5>
-                <DataTable value={fData.data}>
-                     <Column field="firstName" header="firstName" ></Column>
-                     <Column field="age" header="age"></Column>
-                </DataTable>
-            </div>
+            // <div className="p-3">
+            //     <h5>Orders for {"data.familyName"}</h5>
+            //     <DataTable value={"fData.data"}>
+            //          <Column field="firstName" header="firstName" ></Column>
+            //          <Column field="age" header="age"></Column>
+            //     </DataTable>
+            // </div>
+            <h1>{data1!==null&&"hgjh"}</h1>
         );
     };
     const header = (
