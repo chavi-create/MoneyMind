@@ -26,14 +26,13 @@ export default function CustomersTable() {
     useEffect(() => {
        if(id!==null)
        {
-        debugger
         let fData=[]
         const fetchd=async()=>{
-debugger
              fData = await axios.get(`http://localhost:8000/manager/headusers/users/${1}`);
         }
         fetchd()
         setData1(fData)
+        console.log('data1 ', data1);
        }
     }, [id])
     // useEffect(() => {
@@ -50,8 +49,10 @@ debugger
 
     const expandAll = () => {
         let _expandedRows = {};
+        console.log("products ",products);
+        console.log("ExpandedRows ",expandedRows);
 
-        products.forEach((p) => (_expandedRows[`${p.id}`] = true));
+        products.forEach((p) => (_expandedRows[`${p.idfamily}`] = true));
 
         setExpandedRows(_expandedRows);
     };
@@ -89,14 +90,14 @@ debugger
         // 
         // console.log(fData.data);
         return (
-            // <div className="p-3">
-            //     <h5>Orders for {"data.familyName"}</h5>
-            //     <DataTable value={"fData.data"}>
-            //          <Column field="firstName" header="firstName" ></Column>
-            //          <Column field="age" header="age"></Column>
-            //     </DataTable>
-            // </div>
-            <h1>{data1!==null&&"hgjh"}</h1>
+            <div className="p-3">
+                {data1!==null&&<h5>Orders for {data1.familyName}</h5>}
+                {data1!==null&&<DataTable value={data1}>
+                     <Column field="firstName" header="firstName" ></Column>
+                     <Column field="age" header="age"></Column>
+                </DataTable>}
+            </div>
+            // <h1>{data1!==null&&"hgjh"}</h1>
         );
     };
     const header = (
