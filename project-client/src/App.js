@@ -12,6 +12,9 @@ import PermissionsTable from './component/permissions/PermissionsTable';
 import CustomersTable from './component/manager/customers/CustomersTable';
 import CategoryChart from './component/manager/charts/CategoryChart';
 import AddCategory from './component/manager/categories/AddCategory';
+import CityChart from './component/manager/charts/CityChart';
+import AgeChart from './component/manager/charts/AgeChart';
+import StatData from './component/manager/charts/StatData';
 
 
 function App() {
@@ -27,7 +30,10 @@ function App() {
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
           <Route exact path='/categories' element={<AddCategory />}></Route>
-          <Route exact path='/chart' element={<CategoryChart />}></Route>
+          <Route exact path='/categoryChart' element={<CategoryChart />}></Route>
+          <Route exact path='/cityChart' element={<CityChart />}></Route>
+          <Route exact path='/ageChart' element={<AgeChart />}></Route>
+          <Route exact path='/charts' element={<StatData />}></Route>
         </Routes>    
     </>
   );
