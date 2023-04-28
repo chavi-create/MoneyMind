@@ -113,7 +113,7 @@ export default function CustomersTable() {
             <Toast ref={toast} />
             <DataTable value={products} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
                     onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
-                    dataKey="id" header={header} tableStyle={{ minWidth: '60rem' }}>
+                    dataKey="id" header={header} tableStyle={{ minWidth: '50rem' }}>
                 <Column expander={allowExpansion} style={{ width: '5rem' }} />
                 {/* <Column field="idfamily" header="idfamily"/> */}
                 {/* <Column header="Image" body={imageBodyTemplate} /> */}
