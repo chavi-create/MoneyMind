@@ -31,6 +31,7 @@ export default function CustomersTable() {
              fData = await axios.get(`http://localhost:8000/manager/headusers/users/${1}`);
         }
         fetchd()
+        console.log('fdata ',fData);
         setData1(fData)
         console.log('data1 ', data1);
        }
@@ -125,7 +126,6 @@ export default function CustomersTable() {
     );
 }
 
-//aaaaa
 
 
 

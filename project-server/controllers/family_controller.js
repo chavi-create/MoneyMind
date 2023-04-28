@@ -3,22 +3,30 @@ const userController = require("../controllers/user_controller");
 
 //create - post
 exports.createNewFamily = async(req,res)=>{
-    const _password = req.body.password;
-    const name = req.body.familyName;
+    // const _password = req.body.password;
+    // const name = req.body.familyName;
+    const _password = req.body.Password;
+    const name = req.body.FamilyName;
     const familyToInsert = {password:_password,familyName:name};
     console.log(familyToInsert);
     if(!familyToInsert) 
-    return res.status(400).json({message: 'not entried data'});
+    return res.status(400).send({message: 'not entried data'});
     try{
         const newFamily = await FamilyDB.createNewFamily(familyToInsert);
         console.log(newFamily);
-        if(newFamily)
+        if(newFamily){
+        try{
             userController.createUserHead(req,res,newFamily.dataValues.idfamily);
-        else 
-            res.status(400).json({message:'error'});
+        }
+        catch{
+            await FamilyDB.deleteFamily(newFamily.dataValues.idfamily);
+            return res.status(400).send({message: 'identity exist'});
+        }}
+        else            
+            return res.status(400).send({message:'error'});
     }
     catch{
-        res.send("password exist")
+        return res.status(400).send({message:"password exist"});
     }
 };
 
