@@ -17,7 +17,7 @@ const ItemsButton=(props)=> {
       <>
         <div >
             <Toast ref={toast}></Toast>
-            <SplitButton label={props.label}  model={items} onClick={props.items[0].command}/>
+            <SplitButton label={props.label}  model={items} onClick={props.onClick}/>
         </div>
       </>
     );}

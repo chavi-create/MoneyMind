@@ -5,6 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
+import { Button } from 'primereact/button';
 import UseAxiosById from '../../hooks/UseAxiosById';
 import UseAxiosGet from '../../hooks/UseAxiosGet';
 import axios from 'axios';
@@ -62,12 +63,6 @@ export default function UsersPermissions() {
                 console.log("put ccc: " + ccc);
             }
         }
-        if (eData.identity == null || newD.identity != eData.identity) {
-            let perId = await getPermissionId(newD.permission);
-            let obj = { identity: newD.identity, firstName: newD.firstName, permission: perId };
-            let bbb = await axios.post(`http://localhost:8000/users/${111111111}`, obj);
-            console.log("post bbb: " + bbb);
-        }
 
         refetch();
     };
@@ -107,7 +102,10 @@ export default function UsersPermissions() {
                 justifyContent: "center",
                 alignItems: "center",
             }}>
-                <button onClick={addUser} >add user</button>
+                <div className="card flex justify-content-center">
+                        <Button label="add user" onClick={addUser}/>
+                    </div>
+                {/* <button onClick={addUser} >add user</button> */}
             </div>
         </div>
     );
