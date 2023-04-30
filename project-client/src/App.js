@@ -11,6 +11,8 @@ import UsersPermissions from './Component/permissions/UsersPermissions';
 import PermissionsTable from './Component/permissions/PermissionsTable';
 import CameraIncome from './Component/addDetails/CameraIncome';
 import ManuallyIncome from './Component/addDetails/ManuallyIncome';
+import CameraExpense from './Component/addDetails/CameraExpense';
+import ManuallyExpense from './Component/addDetails/ManuallyExpense';
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
           <Route exact path='/CameraIncome' element={<CameraIncome />}></Route>
           <Route exact path='/ManuallyIncome' element={<ManuallyIncome />}></Route>
+          <Route exact path='/CameraExpense' element={<CameraExpense />}></Route>
+          <Route exact path='/ManuallyExpense' element={<ManuallyExpense />}></Route>
         </Routes>
       
     </>

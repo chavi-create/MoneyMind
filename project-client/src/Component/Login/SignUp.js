@@ -13,6 +13,8 @@ export default function SignUp() {
     const show = () => {
         toast.current.show({ severity: 'success', summary: 'Form Submitted', detail: formik.values.value });
     };
+    
+    
     const formik = useFormik({
         initialValues: {
             Id: '',
@@ -88,11 +90,11 @@ export default function SignUp() {
                         <Button label="update details" />
                     </div>
                     <br /><br /><br />
-                    {/* {getFormErrorMessage('value')} */}
                     {getFormErrorMessage('Id')}
                     {getFormErrorMessage('FamilyName')}
                     {getFormErrorMessage('Password')}
                     <Button type="submit" label="Login" />
+                    
                 </form>
             </Card>
         </div>

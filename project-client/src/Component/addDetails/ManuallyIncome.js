@@ -38,7 +38,8 @@ const ManuallyIncome = () => {
     toast.current.show({ severity: 'success', summary: 'Form Submitted', detail: formik.values.value });
   };
 
-  let newDate = new Date()
+  let newDate = new Date();
+  
   const formik = useFormik({
     initialValues: {
       sumOfMoney: 0,
@@ -65,7 +66,7 @@ const ManuallyIncome = () => {
     },
     onSubmit: async (data) => {
       console.log('data', data);
-      debugger
+      // debugger
       var obj = {
         familyId: 1,
         sumOfMoney: data.sumOfMoney,
@@ -93,7 +94,7 @@ const ManuallyIncome = () => {
   return (
     <>
       <div className="card flex flex-wrap gap-3 p-fluid">
-        <Card title="Manual entry 🤞🤘👍👌" style={{ width: '350px' }}>
+        <Card title="Incomes- Manual entry 🤞🤘👍👌" style={{ width: '350px' }}>
           <p className="m-0">
             <form onSubmit={formik.handleSubmit} className="flex flex-column gap-2">
               <span className="flex-auto">
@@ -101,18 +102,16 @@ const ManuallyIncome = () => {
                 {/* <Toast ref={toast} /> */}
                 <InputNumber inputId="locale-user" id="sumOfMoney" name="sumOfMoney"
                   value={formik.values.sumOfMoney}
-                  onChange={(e) =>
-                    formik.setFieldValue("sumOfMoney", e.value)}
+                  onChange={(e) => formik.setFieldValue("sumOfMoney", e.value)}
                   minFractionDigits={2} />
               </span>
               <br />
               <span className="fp-float-label">
-
                 <label htmlFor="locale-user" className="font-bold block mb-2">type of income</label>
                 <Dropdown
-                  name="type"
                   id="type"
-                  style={{ width: '180px' }}
+                  name="type"
+                  // style={{ width: '180px' }}
                   value={formik.values.type}
                   onChange={(e) => formik.setFieldValue("type", e.target.value.name)}
                   options={types}
@@ -140,7 +139,7 @@ const ManuallyIncome = () => {
                   id="beneficiary"
                   name="beneficiary"
                   value={formik.values.beneficiary}
-                  onChange={(e) => formik.setFieldValue("beneficiary", e.target.value)}
+                  onChange={(p) => formik.setFieldValue("beneficiary", p.target.value)}
                 />
                 <label htmlFor="username">beneficiary</label>
               </span>
