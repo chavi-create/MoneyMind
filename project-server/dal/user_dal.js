@@ -56,5 +56,5 @@ const login= async(id)=>{
 const getUsersPermission = async(_familyId)=>{
     return await User.findAll({ include:[{model:db.permissions,attributes:['permissionName']}],where: { familyId: _familyId ,familyHead:0},attributes:['firstName','identity']});
 }
-// getUsersByFamily,
+
 module.exports={createNewUser,getHeadUsers,getUsersByFamily,getUserById,getUsers,getCities,getBirthdate,updateUserById,deleteUser,login,getEmailUsers,getUsersPermission};

@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import SignUp from './component/login/SignUp';
 import Login from './component/login/Login';
@@ -15,14 +16,22 @@ import AddCategory from './component/manager/categories/AddCategory';
 // import CityChart from './component/manager/charts/CityChart';
 // import AgeChart from './component/manager/charts/AgeChart';
 import StatData from './component/manager/charts/StatData';
+import UserProvider from './component/user/UserProvider'
 
 
 function App() {
+  const [userId, setUserId] = useState('');
+
+  const setUserIdCallback = (id) => {
+    setUserId(id);
+  }
   return (
-    <>  
+    <>
+      <UserProvider userId={userId}>
+        {/* {userId == '' && <Login setUserId={setUserIdCallback}></Login>} */}
         <Routes>
           <Route exact path='/signup' element={<SignUp />}></Route>
-          <Route exact path='/login' element={<Login />}></Route>
+          <Route exact path='/login' element={<Login setUserId={setUserIdCallback}/>}></Route>
           <Route exact path='/' element={<Home />}></Route>
           <Route exact path='/homeManager' element={<HomeManager />}></Route>
           <Route exact path='/customers' element={<CustomersTable />}></Route>
@@ -34,9 +43,15 @@ function App() {
           <Route exact path='/cityChart' element={<CityChart />}></Route>
           <Route exact path='/ageChart' element={<AgeChart />}></Route> */}
           <Route exact path='/charts' element={<StatData />}></Route>
-        </Routes>    
+        </Routes>
+      </UserProvider>
     </>
   );
 }
 
 export default App;
+
+
+
+
+

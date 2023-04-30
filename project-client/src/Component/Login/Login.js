@@ -11,7 +11,7 @@ import UseAxiosGet from '../../hooks/UseAxiosGet';
 import UseAxiosById from '../../hooks/UseAxiosById';
 import axios from 'axios';
 
-const Login = () => {
+const Login = (props) => {
   const navigate = useNavigate();
   const toast = useRef(null);
   const [value, setValue] = useState();
@@ -75,7 +75,7 @@ const Login = () => {
           <br />
 
           <span className="p-float-label">
-            <InputNumber inputId="withoutgrouping" id="number-input" name="Id" value={formik.values.Id} onValueChange={(e) => formik.setFieldValue('Id', e.target.value)} useGrouping={false} />
+            <InputNumber inputId="withoutgrouping" id="number-input" name="Id" value={formik.values.Id} onValueChange={(e) => {formik.setFieldValue('Id', e.target.value);props.setUserId(e.target.value)}} useGrouping={false} />
             <label htmlFor="number-input">Identity</label>
           </span>
           <br />

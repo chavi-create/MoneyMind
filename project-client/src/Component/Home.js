@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';   
+import React, { useContext, useEffect } from 'react';   
 import SimpleButton from './home/SimpleButton';
 import ItemsButton from './home/ItemsButton';
 import UseAxiosGet from '../hooks/UseAxiosGet';
@@ -6,10 +6,13 @@ import {useNavigate} from 'react-router-dom';
 import UsersPermissions from './permissions/UsersPermissions';
 import PermissionsTable from './permissions/PermissionsTable'
 import { Card } from 'primereact/card';
+import UserContext from './user/UserContext';
 
 function Home() {
-  const{data,loading,refetch,error}=UseAxiosGet('users/');
-  useEffect(()=>{console.log('data',data);},[data])
+  // const{data,loading,refetch,error}=UseAxiosGet('users/');
+  // useEffect(()=>{console.log('data',data);},[data])
+  const user = useContext(UserContext);
+
   const navigate = useNavigate();
   const onClick1 = ()=>{navigate('/UpdateDetails')};
     const items1 = [{label:'permissions',icon:<i class="pi pi-lock-open"></i>}];
@@ -18,7 +21,7 @@ function Home() {
     const family = "Halbershtam"
     return (
       <>
-      <h1>Hello {family} family</h1>
+      <h1>Hello {user.identity} family</h1>
       <h2>You can do many operations:</h2>
       <div className="card flex justify-content-center" style={{padding:'200px'}}>
       <Card className="md:w-25rem">
