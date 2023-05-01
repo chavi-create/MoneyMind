@@ -37,11 +37,10 @@ export default function Charity() {
           year: dt.getFullYear()
         }
       });
-      console.log("res",res);
+      console.log("res",res.data);
     } catch (error) {
       console.log(error);
     }
-    //  return res.data;
   };
 
   // const{data,loading,refetch,error}=UseAxiosById('expenses/charity',"1");
@@ -90,23 +89,18 @@ export default function Charity() {
           ))}
         </DataTable>
         <div className="flex-auto">
-          <label htmlFor="currency-us" className="font-bold block mb-2">
-            <br />
-            <br />
-            <br />
-            Total price
-          </label>
+          <label htmlFor="currency-us" className="font-bold block mb-2"><br /><br /><br /> Total price <br /></label>
           <InputNumber
             inputId="currency-us"
             value={value}
+            // value={(res.data)[2].tota}
             onValueChange={(e) => setValue(e.value)}
             mode="currency"
             currency="USD"
             locale="en-US"
           />
         </div>
-        <br />
-        <br />
+        <br /><br />
         <Messages ref={msgs} />
       </Card>
     </div>

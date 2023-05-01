@@ -100,7 +100,7 @@ exports.getCharity = async(req, res) => {
     expensesArr.push({price:_price,description:descript,categoryName:category});
     totalCharity+=_price;
   });
-  expensesArr.push(totalCharity);
+  expensesArr.push({'totalCharity':totalCharity});
   // const totalIncomes = (incomeController.getIncomesSum(f_id,month,year))*1.0/10;
   // if (totalCharity<totalIncomes)
   //   alert...
