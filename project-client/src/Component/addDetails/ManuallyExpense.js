@@ -7,6 +7,7 @@ import { Calendar } from 'primereact/calendar';
 import { Button } from 'primereact/button';
 import axios from 'axios'
 import { Field, useFormik } from 'formik';
+import UseAxiosById from "../../hooks/UseAxiosById";
 // import { Toast } from "primereact/toast";
 // import { UseAxiosPost } from "../../hooks/UseAxiosPost";
 // import { useForm, Controller } from 'react-hook-form';
@@ -18,20 +19,6 @@ const ManuallyExpense = () => {
     const [date, setDate] = useState(null);
     const [selectedType, setSelectedType] = useState(null);
 
-    // const types = [
-    //     { name: 'Salary' },
-    //     { name: 'Scholarship' },
-    //     { name: 'Bonus' },
-    //     { name: 'Other' },
-    // ];
-
-    // const selectType = (option, props) => {
-    //     if (option) {
-    //         return (<div className="flex align-items-center"> {option.name}</div>);
-    //     }
-    //     return <span>{props.placeholder}</span>;
-    // };
-
     const toast = useRef(null);
 
     const show = () => {
@@ -39,7 +26,7 @@ const ManuallyExpense = () => {
     };
 
     let newDate = new Date();
-    
+
     const formik = useFormik({
         initialValues: {
             familyId: 100,
@@ -54,14 +41,14 @@ const ManuallyExpense = () => {
             generalDescription: ''
         },
         validate: (data) => {
+            console.log("validate");
             let errors = {};
             if (!data.paymentNumber) {
-
                 errors.paymentNumber = 'paymentNumber is required.';
             }
-            if (!data.mainPayment) {
-                errors.mainPayment = 'mainPayment is required.';
-            }
+            // if (!data.mainPayment) {
+            //     errors.mainPayment = 'mainPayment is required.';
+            // }
             if (!data.categoryId) {
                 errors.categoryId = 'categoryId is required.';
             }
@@ -71,11 +58,12 @@ const ManuallyExpense = () => {
             if (!data.price) {
                 errors.price = 'price is required.';
             }
+            console.log({ errors });
             return errors;
+
         },
         onSubmit: async (data) => {
             console.log('data', data);
-            // debugger
             var obj = {
                 familyId: 1,
                 month: data.month,
@@ -102,6 +90,15 @@ const ManuallyExpense = () => {
         return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
     };
 
+    //delete*****************************************✔🐱🐱‍🚀🐱‍👓😃🤷‍♀️🤦‍♀️👍🤞😉🎶🙌💕🤢
+    // const deleter = (identity) => {
+    //     const { data, loading, refetch, error } = UseAxiosById('expenses/getexpense', identity);
+    //     useEffect(() => { console.log('data', data); }, [data])
+
+    //     let aaa = await axios.delete(`http://localhost:8000/users/${identity}`);
+    //     console.log("delete aaa: " + aaa);
+    // }
+
 
     return (
         <>
@@ -117,8 +114,10 @@ const ManuallyExpense = () => {
                                     value={formik.values.productName}
                                     onChange={(e) => formik.setFieldValue("productName", e.target.value)}
                                 />
+                                {getFormErrorMessage("productName")}
                                 <label htmlFor="username">productName</label>
                             </span>
+
                             <br />
                             <span className="flex-auto">
                                 <label htmlFor="locale-user" className="font-bold block mb-2">price of expense</label>
@@ -128,6 +127,7 @@ const ManuallyExpense = () => {
                                     onChange={(e) => formik.setFieldValue("price", e.value)}
                                     minFractionDigits={2} />
                             </span>
+                            {getFormErrorMessage("price")}
                             <br /><br />
                             <label htmlFor="locale-user" className="font-bold block mb-2">purchase date</label>
                             <Calendar
@@ -149,6 +149,7 @@ const ManuallyExpense = () => {
                                     onChange={(e) => formik.setFieldValue("paymentNumber", e.value)}
                                 />
                             </span>
+                            {getFormErrorMessage("paymentNumber")}
                             <br /><br />
                             <span className="flex-auto">
                                 <label htmlFor="locale-user" className="font-bold block mb-2">category id</label>
@@ -156,7 +157,8 @@ const ManuallyExpense = () => {
                                     value={formik.values.categoryId}
                                     onChange={(e) => formik.setFieldValue("categoryId", e.value)}
                                 />
-                            </span>                            
+                            </span>
+                            {getFormErrorMessage("categoryId")}
                             <br /><br />
                             <label htmlFor="locale-user" className="font-bold block mb-2">general description</label>
                             <span className="p-float-label">
@@ -170,11 +172,12 @@ const ManuallyExpense = () => {
                             </span>
                             <br />
                             <span className="card flex justify-content-center">
-
-                                {getFormErrorMessage("productName")}
-                                {/* {getFormErrorMessage("price")} */}
                                 <Button type="submit" label="Send" style={{ width: '180px' }} />
+                                <br /><br />
                             </span>
+                            {/* <span className="card flex justify-content-center">
+                                <Button type="submit" label="Delete" style={{ width: '180px' }} onClick={deleter(data.idexpense)} />
+                            </span> */}
                         </form>
                     </p>
                 </Card>

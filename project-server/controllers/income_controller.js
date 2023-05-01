@@ -2,6 +2,7 @@ const IncomeDB = require("../dal/income_dal");
 
 //create - post
 exports.createNewIncome = async(req,res)=>{
+  console.log("body========",req.body);
     const incomeToInsert = req.body;
     console.log(incomeToInsert,"juiji")
     if(!incomeToInsert) 

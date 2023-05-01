@@ -74,8 +74,11 @@ const ManuallyIncome = () => {
         incomeDate: data.incomeDate,
         bankEntryDate: data.bankEntryDate,
         year: data.year,
-        month: data.month
+        month: data.month,
+        type: data.type,
+        beneficiary: data.beneficiary
       }
+      console.log('obj', obj);
       await axios.post(`http://localhost:8000/incomes/`, obj);
       console.log("the post workkkkk😁")
       data && show(data);
@@ -105,6 +108,7 @@ const ManuallyIncome = () => {
                   onChange={(e) => formik.setFieldValue("sumOfMoney", e.value)}
                   minFractionDigits={2} />
               </span>
+              {getFormErrorMessage("sumOfMoney")}
               <br />
               <span className="fp-float-label">
                 <label htmlFor="locale-user" className="font-bold block mb-2">type of income</label>
@@ -132,6 +136,7 @@ const ManuallyIncome = () => {
                 />
                 <label htmlFor="username">source</label>
               </span>
+              {getFormErrorMessage("source")}
               <br />
               <label htmlFor="locale-user" className="font-bold block mb-2">beneficiary of income</label>
               <span className="p-float-label">
@@ -155,10 +160,11 @@ const ManuallyIncome = () => {
                 placeholder="00/00/0000"
                 slotChar="mm/dd/yyyy"
               />
-              <br />
+              {getFormErrorMessage("incomeDate")}
+              <br /> <br />
               <span className="card flex justify-content-center">
 
-                {getFormErrorMessage("sumOfMoney")}
+                
                 <Button type="submit" label="Send" style={{ width: '180px' }} />
               </span>
             </form>
