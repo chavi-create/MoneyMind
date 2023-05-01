@@ -9,20 +9,19 @@ import { Card } from 'primereact/card';
 import 'primeicons/primeicons.css';
 import axios from 'axios';
 import UseAxiosById from '../../hooks/UseAxiosById';
+import dayjs from "dayjs"
+import { Country, State, City }  from 'country-state-city';
 
 export default function UpdateDetails() {
+  debugger
   const fData = UseAxiosById('users', 111111111);
-  useEffect(() => {
-    if (fData.data) {
-      console.log(fData.data);
-      setValue(fData.data.firstName);
-      setValue2(fData.data.identity);
-      setValue3(fData.data.pelephone);
-      setValue4(fData.data.email);
-      setSelectedCity(fData.data.city);
-      setDate(fData.data.birthdate);
-    }
-  }, [fData.data])
+  const cities = City.getCitiesOfCountry("IL").map((city)=>{return {"name":city.name}});
+    console.log({ cities });
+
+  // useEffect(() => { console.log({ _cities }); }, [_cities])
+
+
+
   const [value, setValue] = useState('');
   const [value1, setValue1] = useState('');
   const [value2, setValue2] = useState('');
@@ -30,20 +29,35 @@ export default function UpdateDetails() {
   const [value4, setValue4] = useState('');
 
   const [date, setDate] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  useEffect(() => {
+    if (fData.data) {
+      console.log(fData.data);
+      setValue(fData.data.firstName);
+      setValue2(fData.data.identity);
+      // setValue3(fData.data.pelephone);
+      setTextNum(fData.data.pelephone);
+      setValue4(fData.data.email);
+      setSelectedCity({ name: fData.data.city });
+      setDate(dayjs(fData.data.birthdate).format("DD/MM/YYYY"));
+    }
+  }, [fData.data])
+
+  useEffect(() => {
+    console.log({ date })
+  }, [date])
+
+  useEffect(() => {
+    console.log({ selectedCity })
+  }, [selectedCity])
+
   const phone = 'phone';
 
-  const [selectedCity, setSelectedCity] = useState(null);
-  const cities = [
-    { name: 'Jerusalem' },
-    { name: 'Hifha', code: 'IL' },
-    { name: 'Acko', code: 'IL' },
-    { name: 'Teberia', code: 'IL' },
-    { name: 'Beher-sheva', code: 'IL' },
-  ];
+  const update = (data) => {
+    console.log("on submit", data);
 
-const update =(data)=>{
-  console.log("on submit",data);
-}
+  }
 
   const selectedCityTemplate = (option, props) => {
     if (option) {
@@ -60,6 +74,17 @@ const update =(data)=>{
     }
     return <span>{props.placeholder}</span>;
   };
+
+
+  const [textNum, setTextNum] = useState('');
+
+  const handleChange = event => {
+    const result = event.target.value.replace(/\D/g, '');
+
+    setTextNum(result);
+  };
+
+
 
   return (
     <>
@@ -97,19 +122,27 @@ const update =(data)=>{
               <br />
               <Calendar
                 style={{ width: '180px' }}
-                value={date}
+                value={new Date(date)}
                 onChange={(e) => setDate(e.value)}
-                mask="99/99/9999"
-                placeholder="00/00/0000"
-                slotChar="mm/dd/yyyy"
+                // mask="99/99/9999"
+                // placeholder="00/00/0000"
+                slotChar="dd/mm/yyyy"
               />
               <br /><br />
-              <InputMask
+              {/* <InputMask
                 style={{ width: '180px' }}
                 value={value3}
                 onChange={(e) => setValue3(e.target.value)}
                 mask={phone == 'phone' ? '99-9999999' : '000-000-0000'}
                 placeholder="00-000000"
+              /> */}
+              <InputText
+                style={{ width: '180px' }}
+                value={textNum}
+                onChange={handleChange}
+                mask={phone == 'phone' ? '99-9999999' : '000-000-0000'}
+                placeholder="00-000000"
+                oninput={() => this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')}
               />
               <br /><br />
               {/* <label>Email</label> */}
@@ -151,7 +184,7 @@ const update =(data)=>{
               </span>
               <br /><br /><br />
               <span className="card flex justify-content-center">
-                <Button label="Submit" onClick={update}/>
+                <Button label="Submit" onClick={update} />
               </span>
               {/* <div className="card flex justify-content-center">
                 <Button label="Managing permissions and children's information" />

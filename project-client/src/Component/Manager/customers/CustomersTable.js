@@ -14,7 +14,7 @@ export default function CustomersTable() {
     const [products, setProducts] = useState([]);
     const [expandedRows, setExpandedRows] = useState(null);
     const [id, setId] = useState(null);
-    const [data1, setData1] = useState(null);
+    const [data1, setData1] = useState([]);
     const toast = useRef(null);
 
     const { data, loading, refetch, error } = UseAxiosGet('manager/headusers/');
@@ -26,13 +26,14 @@ export default function CustomersTable() {
     useEffect(() => {
        if(id!==null)
        {
+        debugger
         let fData=[]
         const fetchd=async()=>{
              fData = await axios.get(`http://localhost:8000/manager/headusers/users/${1}`);
+              setData1(fData.data)
         }
         fetchd()
         console.log('fdata ',fData);
-        setData1(fData)
         console.log('data1 ', data1);
        }
     }, [id])
@@ -92,11 +93,15 @@ export default function CustomersTable() {
         // console.log(fData.data);
         return (
             <div className="p-3">
-                {data1!==null&&<h5>Orders for {data1.familyName}</h5>}
-                {data1!==null&&<DataTable value={data1}>
+               { data1.length>0&&
+               <>
+               <h5>Orders for {data1.familyName}</h5>
+                <DataTable value={data1}>
                      <Column field="firstName" header="firstName" ></Column>
                      <Column field="age" header="age"></Column>
-                </DataTable>}
+                </DataTable>
+               </>
+                }
             </div>
             // <h1>{data1!==null&&"hgjh"}</h1>
         );

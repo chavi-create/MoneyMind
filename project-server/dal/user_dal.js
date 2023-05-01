@@ -50,7 +50,7 @@ const deleteUser = async(id)=>{
 }
 
 const login= async(id)=>{
-    return await User.findOne({include:[{model:db.families,attributes:['password']}],where:{identity:id}});
+    return await User.findOne({include:[{model:db.families,attributes:['password','familyName']}],where:{identity:id}});
 }
 
 const getUsersPermission = async(_familyId)=>{

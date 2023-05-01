@@ -21,7 +21,7 @@ function Home() {
     const family = "Halbershtam"
     return (
       <>
-      <h1>Hello {user.identity} family</h1>
+      <h1>Hello {user.familyName} family</h1>
       <h2>You can do many operations:</h2>
       <div className="card flex justify-content-center" style={{padding:'200px'}}>
       <Card className="md:w-25rem">

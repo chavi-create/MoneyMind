@@ -9,7 +9,6 @@ app.use(cors());
 
 app.use(express.json());
 
-
 require("./routes/user_route")(app);
 require("./routes/family_route")(app);
 require("./routes/category_route")(app);

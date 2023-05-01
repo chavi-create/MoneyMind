@@ -59,8 +59,9 @@ const Login = (props) => {
     <div className="card flex justify-content-center">
       <Card className="md:w-25rem">
         <form onSubmit={formik.handleSubmit} className="flex flex-column gap-2">
-          <span className="p-float-label">
-            <Toast ref={toast} />
+          <Toast ref={toast} />
+          {/* <span className="p-float-label">
+            
             <InputText
               id="value"
               name="value"
@@ -72,7 +73,7 @@ const Login = (props) => {
             <label htmlFor="input_value">Name</label>
           </span>
 
-          <br />
+          <br /> */}
 
           <span className="p-float-label">
             <InputNumber inputId="withoutgrouping" id="number-input" name="Id" value={formik.values.Id} onValueChange={(e) => {formik.setFieldValue('Id', e.target.value);props.setUserId(e.target.value)}} useGrouping={false} />
