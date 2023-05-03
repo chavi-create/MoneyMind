@@ -1,17 +1,25 @@
 import React, { useRef, useState } from 'react';
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from 'primereact/inputnumber';
 import { Password } from 'primereact/password';
+import UseAxiosGet from '../../hooks/UseAxiosGet';
+import UseAxiosById from '../../hooks/UseAxiosById';
+import axios from 'axios';
 
 const Login = () => {
+  const navigate = useNavigate();
   const toast = useRef(null);
   const [value, setValue] = useState();
   const show = () => {
     toast.current.show({ severity: 'success', summary: 'Form Submitted', detail: formik.values.value });
+  };
+  const showError = () => {
+    toast.current.show({ severity: 'error', summary: 'error Submitted', detail: formik.values.value });
   };
   const formik = useFormik({
     initialValues: {
@@ -28,9 +36,16 @@ const Login = () => {
       }
       return errors;
     },
-    onSubmit: (data) => {
-      data && show(data);
-      formik.resetForm();
+    onSubmit: async (data) => {
+      try {
+        const result = await axios.get(`http://localhost:8000/users/login/${data.Id}`, { params: { password: data.Password } });
+        data && show(data);
+        navigate("/");
+      }
+      catch {
+        data && showError(data);
+        formik.resetForm();
+      }
     }
   });
 
@@ -71,7 +86,7 @@ const Login = () => {
           </span>
           <br /><br /><br />
           <div className="card flex justify-content-center">
-            <Button label="new family" />
+            <Button label="new family" onClick={() => { navigate("/signUp") }} />
           </div>
           <br /><br /><br />
           {/* {getFormErrorMessage('value')} */}
