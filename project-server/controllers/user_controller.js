@@ -50,16 +50,29 @@ exports.createUserHead = async (req, res, _familyId) => {
 };
 
 //getById
+// exports.getUserById = async (req, res) => {
+//   const id = req.params.id;
+//   if (!id)
+//     return res.status(400).json({ message: 'not entried id' });
+//   const thisUser = await UserDB.getUserById(id);
+//   if (thisUser)
+//     res.send(thisUser);
+//   else
+//     res.status(400).json({ message: 'error' });
+// };
 exports.getUserById = async (req, res) => {
-  const id = req.params.id;
-  if (!id)
-    return res.status(400).json({ message: 'not entried id' });
-  const thisUser = await UserDB.getUserById(id);
-  if (thisUser)
-    res.send(thisUser);
-  else
-    res.status(400).json({ message: 'error' });
-};
+    const id = req.params.id;
+    if (!id)
+      return res.status(400).json({ message: 'not entried id' });
+    const thisUser = await UserDB.getUserWithFamilyName(id);
+    if (thisUser)
+    {
+      const { family, ...rest } = thisUser.dataValues
+      res.send({ ...rest, familyName: family.dataValues.familyName });
+    }
+    else
+      res.status(400).json({ message: 'error' });
+  };
 
 //login
 exports.login = async (req, res) => {
@@ -77,7 +90,10 @@ exports.login = async (req, res) => {
     const { family, ...rest } = userWithFamily.dataValues
 
     if (flag) {
-      res.send({ ...rest, familyName: family.dataValues.familyName })
+      // res.send({ ...rest, familyName: family.dataValues.familyName })
+
+      res.send({ ...rest});
+
       // const thisUser = await UserDB.getUserById(id);
       // // console.log('thisUser',thisUser);
       // // thisUser.dataValues['user']['familyName']=userWithFamily.dataValues['family'].dataValues['familyName'];

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
@@ -17,10 +17,23 @@ import AddCategory from './component/manager/categories/AddCategory';
 // import AgeChart from './component/manager/charts/AgeChart';
 import StatData from './component/manager/charts/StatData';
 import UserProvider from './component/user/UserProvider'
+import LoginSignUp from './component/login/LoginSignUp';
 
 
 function App() {
   const [userId, setUserId] = useState('');
+
+  //localStorage:
+  // useEffect(() => {
+  //   console.log(localStorage.getItem("user"));
+  //   const userFromLocalStorage = localStorage.getItem("user")
+  //   console.log(userFromLocalStorage);
+  //   if (!userFromLocalStorage) return;
+  //   const parsedUser = JSON.parse(userFromLocalStorage)
+  //   console.log({ parsedUser });
+  //   setUserId(parsedUser.data.identity)
+  // }, []);
+
 
   const setUserIdCallback = (id) => {
     setUserId(id);
@@ -29,9 +42,10 @@ function App() {
     <>
       <UserProvider userId={userId}>
         {/* {userId == '' && <Login setUserId={setUserIdCallback}></Login>} */}
+        {/* {userId ?  */}
         <Routes>
-          <Route exact path='/signup' element={<SignUp />}></Route>
-          <Route exact path='/login' element={<Login setUserId={setUserIdCallback}/>}></Route>
+          {/* <Route exact path='/signup' element={<SignUp />}></Route> */}
+          {/* <Route exact path='/login' element={<Login setUserId={setUserIdCallback} />}></Route> */}
           <Route exact path='/' element={<Home />}></Route>
           <Route exact path='/homeManager' element={<HomeManager />}></Route>
           <Route exact path='/customers' element={<CustomersTable />}></Route>
@@ -43,7 +57,10 @@ function App() {
           <Route exact path='/cityChart' element={<CityChart />}></Route>
           <Route exact path='/ageChart' element={<AgeChart />}></Route> */}
           <Route exact path='/charts' element={<StatData />}></Route>
-        </Routes>
+        </Routes> :
+          {/* // <Login setUserId={setUserIdCallback} /> */}
+          {/* <LoginSignUp setUserId={setUserIdCallback}></LoginSignUp> */}
+        {/* } */}
       </UserProvider>
     </>
   );

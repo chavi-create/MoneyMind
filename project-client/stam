@@ -1,58 +1,32 @@
-params in navigate react
+// params in navigate react
 
-https://stackoverflow.com/questions/42173786/react-router-pass-data-when-navigating-programmatically
+// https://stackoverflow.com/questions/42173786/react-router-pass-data-when-navigating-programmatically
 
-https://stackoverflow.com/questions/72017435/how-can-i-pass-parameters-to-route-with-navigate-function-in-react
+// https://stackoverflow.com/questions/72017435/how-can-i-pass-parameters-to-route-with-navigate-function-in-react
 
-onclick in chart js2
+// onclick in chart js2
 
-https://stackoverflow.com/questions/65822762/how-to-add-onclick-event-on-chart-label-in-react-chartjs-2
+// https://stackoverflow.com/questions/65822762/how-to-add-onclick-event-on-chart-label-in-react-chartjs-2
 
-https://stackoverflow.com/questions/52044013/chartjs-datalabels-show-percentage-value-in-pie-piece
+// https://stackoverflow.com/questions/52044013/chartjs-datalabels-show-percentage-value-in-pie-piece
 
-https://jsfiddle.net/a1Lvn4eb/55/
-:
- var data = [{
-            data: [50, 55, 60, 33],
-            labels: ["India", "China", "US", "Canada"],
-            backgroundColor: [
-                "#4b77a9",
-                "#5f255f",
-                "#d21243",
-                "#B27200"
-            ],
-            borderColor: "#fff"
-        }];
-        
-           var options = {
-           tooltips: {
-         enabled: false
-    },
-             plugins: {
-            datalabels: {
-                formatter: (value, ctx) => {
-                
-                  let sum = 0;
-                  let dataArr = ctx.chart.data.datasets[0].data;
-                  dataArr.map(data => {
-                      sum += data;
-                  });
-                  let percentage = (value*100 / sum).toFixed(2)+"%";
-                  return percentage;
+// https://jsfiddle.net/a1Lvn4eb/55/
 
-              
-                },
-                color: '#fff',
-                     }
-        }
-    };
-    
-    
-        var ctx = document.getElementById("pie-chart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            datasets: data
-        },
-              options: options
-    });
+
+// https://emn178.github.io/chartjs-plugin-labels/samples/demo/
+
+// https://stackoverflow.com/questions/64992424/how-to-show-value-in-pie-chart-legend-in-react-chartjs-2
+
+// https://codesandbox.io/s/react-uuvfj?file=/src/Doughnut.jsx
+
+//color string:
+// const setBg = () => {
+//     const randomColor = Math.floor(Math.random()*16777215).toString(16);
+//     document.body.style.backgroundColor = "#" + randomColor;
+//     color.innerHTML = "#" + randomColor;
+//   }
+  
+//   genNew.addEventListener("click", setBg);
+//   setBg();
+
+// https://www.chartjs.org/docs/latest/general/colors.html

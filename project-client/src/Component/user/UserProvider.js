@@ -1,32 +1,33 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 import UseAxiosById from "../../hooks/UseAxiosById";
-import UserContext from './UserContext';
-//import { getUser } from '../../services/user';
-
+import UserContext from "./UserContext";
 
 const UserProvider = ({ children, userId }) => {
+  const [user, setUser] = useState({});
 
-    const [user, setUser] = useState({});
-    const {data,loading,refetch,error}=UseAxiosById('users',userId);
-    // useEffect(() => {
-    //     if(userId){
-    //         console.log('dataUser ',data);
-    //         setUser(data);
-    //         console.log('user ',user);
-    //     }
-    // }, [userId]);
-    useEffect(() => {
-        if(data){
-            console.log('dataUser ',data);
-            setUser(data);
-            console.log('user ',user);
-        }
-    }, [data]);
+  useEffect(() => {
+    if (userId) {
+      axios.get(`http://localhost:8000/users/${userId}`).then((data) => {
+        console.log({ data });
+        setUser(data.data);
+        // data&&localStorage.setItem("user",JSON.stringify(data))
+      });
+    }
+  }, [userId]);
 
-    return (
-        <UserContext.Provider value={user}>
-            {children}
-        </UserContext.Provider>
-    );
-}
+  // useEffect(() => {
+  //     if(data){
+  //         console.log('dataUser ',data);
+  //         setUser(data);
+  //         console.log('user ',user);
+  //     }
+  // }, [data]);
+
+//   useEffect(() => {
+//     console.log({ userInContext: user });
+//   }, [user]);
+
+  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+};
 export default UserProvider;
