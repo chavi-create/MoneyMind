@@ -10,6 +10,7 @@ import UpdateDetails from './component/userDetails/UpdateDetails';
 import UsersPermissions from './component/permissions/UsersPermissions';
 import PermissionsTable from './component/permissions/PermissionsTable';
 import CustomersTable from './component/manager/customers/CustomersTable';
+import Charity from './expenses/charity';
 
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
           <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
-        </Routes>    
+          <Route exact path='/Charity' element={<Charity />}></Route>
+        </Routes>
+      
     </>
   );
 }

@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { CustomerService } from './service';
+// import { CustomerService } from './service';
 import UseAxiosGet from '../../hooks/UseAxiosGet';
 
+
 export default function PermissionsTable() {
-  const [customers, setCustomers] = useState([]);
+  const [permissions_processes] = useState(['edit', 'view', 'non']);
   
   const{data,loading,refetch,error}=UseAxiosGet('permissions_processes/');
   useEffect(()=>{console.log('data',data);},[data])
 
-  useEffect(() => {
-    CustomerService.getCustomersMedium().then((data) => setCustomers(data));
-  }, []);
+  // useEffect(() => {
+  //   CustomerService.getCustomersMedium().then((data) => setCustomers(data));
+  // }, []);
 
   const headerTemplate = (data) => {
     return (
       <div className="flex align-items-center gap-2">
-        <span className="font-bold">{data.representative.name}</span>
+        <span className="font-bold">{data.permission.permissionName}</span>
       </div>
     );
   };
@@ -25,11 +26,11 @@ export default function PermissionsTable() {
   return (
     <div className="card">
       <DataTable
-        value={customers}
+        value={permissions_processes}
         rowGroupMode="subheader"
-        groupRowsBy="representative.name"
+        groupRowsBy="permissionName"
         sortMode="single"
-        sortField="representative.name"
+        sortField="permissionName"
         sortOrder={1}
         scrollable
         scrollHeight="400px"
@@ -37,7 +38,7 @@ export default function PermissionsTable() {
         tableStyle={{ minWidth: '20rem' }}
       >
         <Column field="id" header="Permission name"></Column>
-        <Column field="name" header="Process description"></Column>
+        <Column field="processDescription" header="Process description"></Column>
       </DataTable>
     </div>
   );
