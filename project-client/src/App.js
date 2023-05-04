@@ -11,6 +11,7 @@ import UpdateDetails from './component/userDetails/UpdateDetails';
 import UsersPermissions from './component/permissions/UsersPermissions';
 import PermissionsTable from './component/permissions/PermissionsTable';
 import CustomersTable from './component/manager/customers/CustomersTable';
+<<<<<<< HEAD
 import AddCategory from './component/manager/categories/AddCategory';
 // import CategoryChart from './component/manager/charts/CategoryChart';
 // import CityChart from './component/manager/charts/CityChart';
@@ -22,6 +23,9 @@ import CategoryChart from './component/manager/charts/CategoryChart';
 import CityChart from './component/manager/charts/CityChart';
 import AgeChart from './component/manager/charts/AgeChart';
 import DialogAddCategory from './component/manager/categories/DialogAddCategory';
+=======
+import Charity from './expenses/charity';
+>>>>>>> 8a1592ab921aefdb86812f9c20b0d69b5dac4563
 
 
 function App() {
@@ -56,6 +60,7 @@ function App() {
           <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
+          <Route exact path='/Charity' element={<Charity />}></Route>
           <Route exact path='/categories' element={<AddCategory />}></Route>
           <Route exact path='/dialogCategory' element={<DialogAddCategory />}></Route>
           <Route exact path='/categoryChart' element={<CategoryChart />}></Route>

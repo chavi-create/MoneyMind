@@ -85,8 +85,8 @@ exports.getExpenseByCategoryId = async(req, res) => {
 
 exports.getCharity = async(req, res) => {
   const f_id = req.params.id;
-  const month = req.body.month;
-  const year = req.body.year;
+  const month = req.query.month;
+  const year = req.query.year;
   if(!f_id) 
     return res.status(400).json({message: 'not entried id'});
   const expenses = await ExpenseDB.getCharity(f_id,month,year);
@@ -100,7 +100,7 @@ exports.getCharity = async(req, res) => {
     expensesArr.push({price:_price,description:descript,categoryName:category});
     totalCharity+=_price;
   });
-  expensesArr.push(totalCharity);
+  expensesArr.push({'totalCharity':totalCharity});
   // const totalIncomes = (incomeController.getIncomesSum(f_id,month,year))*1.0/10;
   // if (totalCharity<totalIncomes)
   //   alert...
@@ -111,7 +111,7 @@ exports.getCharity = async(req, res) => {
 };
 
 exports.getExpensesPrice = async(req, res) => {
-  const fid = req.params.id;
+  const fid = req.params.id;cd
   const month = req.body.month;
   const year = req.body.year;
   if(!fid) 
