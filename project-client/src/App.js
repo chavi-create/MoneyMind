@@ -11,6 +11,7 @@ import UsersPermissions from './component/permissions/UsersPermissions';
 import PermissionsTable from './component/permissions/PermissionsTable';
 import CustomersTable from './component/manager/customers/CustomersTable';
 import Charity from './expenses/charity';
+import CurrentWatch from './component/watching/CurrentWatch';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
           <Route exact path='/Charity' element={<Charity />}></Route>
+          <Route exact path='/CurrentWatch' element={<CurrentWatch />}></Route>
         </Routes>
       
     </>
