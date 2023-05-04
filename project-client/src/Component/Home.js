@@ -1,22 +1,17 @@
 import React, { useContext, useEffect } from "react";
-import SimpleButton from "./home/SimpleButton";
 import ItemsButton from "./home/ItemsButton";
 import UseAxiosGet from "../hooks/UseAxiosGet";
 import { useNavigate } from "react-router-dom";
-import UsersPermissions from "./permissions/UsersPermissions";
-import PermissionsTable from "./permissions/PermissionsTable";
 import { Card } from "primereact/card";
 import UserContext from "./user/UserContext";
+import { Button } from "primereact/button";
 
 function Home() {
   // const{data,loading,refetch,error}=UseAxiosGet('users/');
   // useEffect(()=>{console.log('data',data);},[data])
   const user = useContext(UserContext);
-
   const navigate = useNavigate();
-  const onClick1 = () => {
-    navigate("/UpdateDetails");
-  };
+
   const items1 = [
     { label: "permissions", icon: <i class="pi pi-lock-open"></i> },
   ];
@@ -38,7 +33,9 @@ function Home() {
           <ItemsButton
             label="update details"
             items={items1}
-            onClick={onClick1}
+            onClick={() => {
+              navigate("/UpdateDetails");
+            }}
           />
           <br />
           <br />
@@ -47,15 +44,15 @@ function Home() {
           <br />
           <br />
           <br />
-          <SimpleButton label="add income" />
+          <Button label="add income" />
           <br />
           <br />
           <br />
-          <SimpleButton label="add expense" />
+          <Button label="add expense" />
           <br />
           <br />
           <br />
-          <SimpleButton label="charity" />
+          <Button label="charity" />
           <br />
           <br />
           <br />

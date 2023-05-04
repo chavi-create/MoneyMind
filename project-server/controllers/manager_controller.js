@@ -29,12 +29,12 @@ exports.getUsersHead = async(req, res) => {
 const usersHead = await UserDB.getHeadUsers();
 var usersHeadList = []
 usersHead.forEach(e => {
-    const id = e.dataValues['family'].dataValues['idfamily']
+    const _id = e.dataValues['family'].dataValues['idfamily']
     const fName = e.dataValues['family'].dataValues['familyName'];
     const _city = e.dataValues['city'];
     const pele = e.dataValues['pelephone'];
     const _email = e.dataValues['email'];
-    usersHeadList.push({idfamily:id,familyName:fName,city:_city,pelephone:pele,email:_email})
+    usersHeadList.push({id:_id,familyName:fName,city:_city,pelephone:pele,email:_email})
 });
 if(usersHeadList) 
     // console.log(usersEmail);

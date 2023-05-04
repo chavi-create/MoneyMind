@@ -1,207 +1,133 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-// import { ProductService } from './service/ProductService';
-import { Rating } from 'primereact/rating';
-import { Button } from 'primereact/button';
-import { Tag } from 'primereact/tag';
-import { Toast } from 'primereact/toast';
-import UseAxiosGet from '../../../hooks/UseAxiosGet'
-import UseAxiosById from '../../../hooks/UseAxiosById';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from "react";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Rating } from "primereact/rating";
+import { Button } from "primereact/button";
+import { Tag } from "primereact/tag";
+import { Toast } from "primereact/toast";
+import UseAxiosGet from "../../../hooks/UseAxiosGet";
+import UseAxiosById from "../../../hooks/UseAxiosById";
+import axios from "axios";
 
 export default function CustomersTable() {
-    const [products, setProducts] = useState([]);
-    const [expandedRows, setExpandedRows] = useState(null);
-    const [id, setId] = useState(null);
-    const [data1, setData1] = useState([]);
-    const toast = useRef(null);
+  const [headUsers, setHeadUsers] = useState([]);
+  const [expandedRows, setExpandedRows] = useState(null);
+  const [id, setId] = useState(null);
+  const [users, setUsers] = useState([]);
+  const toast = useRef(null);
 
-    const { data, loading, refetch, error } = UseAxiosGet('manager/headusers/');
-    useEffect(() => {
-        console.log('data', data);
-        if (data) 
-            setProducts(data)
-    }, [data])
-    useEffect(() => {
-       if(id!==null)
-       {
-        debugger
-        let fData=[]
-        const fetchd=async()=>{
-             fData = await axios.get(`http://localhost:8000/manager/headusers/users/${1}`);
-              setData1(fData.data)
-        }
-        fetchd()
-        console.log('fdata ',fData);
-        console.log('data1 ', data1);
-       }
-    }, [id])
-    // useEffect(() => {
-    //     ProductService.getProductsWithOrdersSmall().then((data) => setProducts(data));
-    // }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const { data, loading, refetch, error } = UseAxiosGet("manager/headusers/");
+  useEffect(() => {
+    console.log("data", data);
+    if (data) setHeadUsers(data);
+  }, [data]);
 
-    const onRowExpand = (event) => {
-        toast.current.show({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
-    };
-
-    const onRowCollapse = (event) => {
-        toast.current.show({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
-    };
-
-    const expandAll = () => {
-        let _expandedRows = {};
-        console.log("products ",products);
-        console.log("ExpandedRows ",expandedRows);
-
-        products.forEach((p) => (_expandedRows[`${p.idfamily}`] = true));
-
-        setExpandedRows(_expandedRows);
-    };
-
-    const collapseAll = () => {
-        setExpandedRows(null);
-    };
-
-    const allowExpansion = (rowData) => {
-        // return rowData.orders.length > 0;
-        return true;
-    };
-
-    // const rowExpansionTemplate = async(data) => {
-    //         // console.log("dataexpan...",data);
-    //     // const fData = await axios.get(`http://localhost:8000/manager/headusers/users/${data.idfamily}`);
-    //     // console.log(fData);
-
-    //     return (
-    //         <div className="p-3">
-    //             <h5>family {data.familyName}</h5> <DataTable value={fdata}>
-                //     <Column field="firstName" header="firstName" ></Column>
-                //     <Column field="age" header="age"></Column>
-                //     {/* <Column field="date" header="Date"></Column> */}
-                //     {/* <Column field="amount" header="Amount" body={amountBodyTemplate}></Column> */}
-                //     {/* <Column field="status" header="Status" body={statusOrderBodyTemplate}></Column> */}
-                //     {/* <Column headerStyle={{ width: '4rem' }} body={searchBodyTemplate}></Column> */}
-                // </DataTable>
-    //         </div>
-    //     );
-    // };
-    const rowExpansionTemplate = (data) => {
-        // debugger
-        setId(data.idfamily)
-        // 
-        // console.log(fData.data);
-        return (
-            <div className="p-3">
-               { data1.length>0&&
-               <>
-               <h5>Orders for {data1.familyName}</h5>
-                <DataTable value={data1}>
-                     <Column field="firstName" header="firstName" ></Column>
-                     <Column field="age" header="age"></Column>
-                </DataTable>
-               </>
-                }
-            </div>
-            // <h1>{data1!==null&&"hgjh"}</h1>
+  useEffect(() => {
+    if (id !== null) {
+      let fData = [];
+      const fetchd = async () => {
+        fData = await axios.get(
+          `http://localhost:8000/manager/headusers/users/${id}`
         );
-    };
-    const header = (
-        <div className="flex flex-wrap justify-content-end gap-2">
-            <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
-            <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
-        </div>
-    );
+        setUsers(fData.data);
+      };
+      fetchd();
+      console.log("fdata ", fData);
+      console.log("users ", users);
+    }
+  }, [id]);
+
+  const onRowExpand = (event) => {
+    toast.current.show({
+      severity: "info",
+      summary: "Product Expanded",
+      detail: event.data.name,
+      life: 3000,
+    });
+  };
+
+  const onRowCollapse = (event) => {
+    toast.current.show({
+      severity: "success",
+      summary: "Product Collapsed",
+      detail: event.data.name,
+      life: 3000,
+    });
+  };
+
+  const expandAll = () => {
+    let _expandedRows = {};
+    console.log("headUsers ", headUsers);
+    console.log("ExpandedRows ", expandedRows);
+
+    headUsers.forEach((head) => (_expandedRows[`${head.id}`] = true));
+    console.log("__ExpandedRows ", _expandedRows);
+
+    setExpandedRows(_expandedRows);
+  };
+
+  const collapseAll = () => {
+    setExpandedRows(null);
+  };
+
+  const allowExpansion = (rowData) => {
+    // return users.length > 0;
+    return true;
+  };
+
+  const rowExpansionTemplate = (data) => {
+    console.log({ data });
+    setId(data.id);
 
     return (
-        <div className="card">
-            <Toast ref={toast} />
-            <DataTable value={products} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
-                    onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
-                    dataKey="id" header={header} tableStyle={{ minWidth: '50rem' }}>
-                <Column expander={allowExpansion} style={{ width: '5rem' }} />
-                {/* <Column field="idfamily" header="idfamily"/> */}
-                {/* <Column header="Image" body={imageBodyTemplate} /> */}
-                 <Column field="familyName" header="familyName"  />{/*body={priceBodyTemplate} */}
-                <Column field="city" header="city"/>
-                <Column field="pelephone" header="pelephone" />{/* body={ratingBodyTemplate}  */}
-                <Column field="email" header="email" />{/* body={statusBodyTemplate} */}
+      <div className="p-3">
+        {users.length > 0 && (
+          <>
+            <h5>users for {data.familyName}</h5>
+             <DataTable value={users}> {/*????????????????expandAll open users from the last family*/}
+              <Column field="firstName" header="firstName"></Column>
+              <Column field="age" header="age"></Column>
             </DataTable>
-        </div>
+          </>
+        )}
+      </div>
     );
+  };
+  const header = (
+    <div className="flex flex-wrap justify-content-end gap-2">
+      <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
+      <Button
+        icon="pi pi-minus"
+        label="Collapse All"
+        onClick={collapseAll}
+        text
+      />
+    </div>
+  );
+
+  return (
+    <div className="card">
+      <Toast ref={toast} />
+      <DataTable
+        value={headUsers}
+        expandedRows={expandedRows}
+        onRowToggle={(e) => {
+            console.log({e});
+            setExpandedRows(e.data)
+        }}
+        onRowExpand={onRowExpand}
+        onRowCollapse={onRowCollapse}
+        rowExpansionTemplate={rowExpansionTemplate}
+        dataKey="id"
+        header={header}
+        tableStyle={{ minWidth: "50rem" }}
+      >
+        <Column expander={allowExpansion} style={{ width: "5rem" }} />
+        <Column field="familyName" header="familyName" />
+        <Column field="city" header="city" />
+        <Column field="pelephone" header="pelephone" />
+        <Column field="email" header="email" />
+      </DataTable>
+    </div>
+  );
 }
-
-
-
-
-
-
-
-
-
-   // const formatCurrency = (value) => {
-    //     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    // };
-
-    // const amountBodyTemplate = (rowData) => {
-    //     return formatCurrency(rowData.amount);
-    // };
-
-    // const statusOrderBodyTemplate = (rowData) => {
-    //     return <Tag value={rowData.status.toLowerCase()} severity={getOrderSeverity(rowData)}></Tag>;
-    // };
-
-    // const searchBodyTemplate = () => {
-    //     return <Button icon="pi pi-search" />;
-    // };
-
-    // const imageBodyTemplate = (rowData) => {
-    //     return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} width="64px" className="shadow-4" />;
-    // };
-
-    // const priceBodyTemplate = (rowData) => {
-    //     return formatCurrency(rowData.price);
-    // };
-
-    // const ratingBodyTemplate = (rowData) => {
-    //     return <Rating value={rowData.rating} readOnly cancel={false} />;
-    // };
-
-    // const statusBodyTemplate = (rowData) => {
-    //     return <Tag value={rowData.inventoryStatus} severity={getProductSeverity(rowData)}></Tag>;
-    // };
-
-    // const getProductSeverity = (product) => {
-    //     switch (product.inventoryStatus) {
-    //         case 'INSTOCK':
-    //             return 'success';
-
-    //         case 'LOWSTOCK':
-    //             return 'warning';
-
-    //         case 'OUTOFSTOCK':
-    //             return 'danger';
-
-    //         default:
-    //             return null;
-    //     }
-    // };
-
-    // const getOrderSeverity = (order) => {
-    //     switch (order.status) {
-    //         case 'DELIVERED':
-    //             return 'success';
-
-    //         case 'CANCELLED':
-    //             return 'danger';
-
-    //         case 'PENDING':
-    //             return 'warning';
-
-    //         case 'RETURNED':
-    //             return 'info';
-
-    //         default:
-    //             return null;
-    //     }
-    // };
