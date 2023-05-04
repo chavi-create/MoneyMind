@@ -85,10 +85,10 @@ const birthdates = await UserDB.getBirthdate();
 var agesDic = {};
 birthdates.forEach(e => { 
     var age = calculateAge(e.dataValues['birthdate']);
-    if((Math.round(age/10)) in agesDic)
-    agesDic[(Math.round(age/10))]+=1;  
+    if((Math.round(age/10)*10) in agesDic)
+    agesDic[(Math.round(age/10)*10)]+=1;  
     else
-    agesDic[(Math.round(age/10))]=1; 
+    agesDic[(Math.round(age/10)*10)]=1; 
 });
 if(agesDic) 
     res.send(agesDic);

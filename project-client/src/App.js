@@ -11,7 +11,6 @@ import UpdateDetails from './component/userDetails/UpdateDetails';
 import UsersPermissions from './component/permissions/UsersPermissions';
 import PermissionsTable from './component/permissions/PermissionsTable';
 import CustomersTable from './component/manager/customers/CustomersTable';
-<<<<<<< HEAD
 import AddCategory from './component/manager/categories/AddCategory';
 // import CategoryChart from './component/manager/charts/CategoryChart';
 // import CityChart from './component/manager/charts/CityChart';
@@ -23,10 +22,7 @@ import CategoryChart from './component/manager/charts/CategoryChart';
 import CityChart from './component/manager/charts/CityChart';
 import AgeChart from './component/manager/charts/AgeChart';
 import DialogAddCategory from './component/manager/categories/DialogAddCategory';
-=======
 import Charity from './expenses/charity';
->>>>>>> 8a1592ab921aefdb86812f9c20b0d69b5dac4563
-
 
 function App() {
   const [userId, setUserId] = useState('');

@@ -41,8 +41,12 @@ const getAnotherCategories = async(cid)=>{
     return await Expense.findAll({where:{categoryId:cid},attributes:['generalDescription']});
 }
 
+const updateCategoryId = async(_categoryId,namesArray)=>{
+    return await Expense.update({categoryId:_categoryId},{ where: { categoryId: 7 ,generalDescription:namesArray} });
+}
+
 const deleteExpense = async(id)=>{
     return await Expense.destroy({ where: { idexpense: id } });
 }
 
-module.exports={createNewExpense,getExpenseById,getExpense,getExpenseByCategoryId,getExpenseCategory,getCategories,getCharity,getExpensesPrice,getExpensesCharity,getAnotherCategories,deleteExpense};
+module.exports={createNewExpense,getExpenseById,getExpense,getExpenseByCategoryId,getExpenseCategory,getCategories,getCharity,getExpensesPrice,getExpensesCharity,getAnotherCategories,updateCategoryId,deleteExpense};

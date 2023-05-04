@@ -6,44 +6,59 @@ import { Card } from "primereact/card";
 import { Toast } from "primereact/toast";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
+import { MultiSelect } from 'primereact/multiselect';
+import axios from "axios";
 
 export default function DialogAddCategory(props) {
-//   const [visible, setVisible] = useState(false);
   const toast = useRef(null);
-  //   const [value, setValue] = useState();
   const charityOptions = [{ name: "yes" }, { name: "no" }];
 
   const show = () => {
     toast.current.show({
       severity: "success",
-      summary: "Form Submitted",
+      summary: "successful",
       detail: formik.values.value,
     });
   };
   const showError = () => {
     toast.current.show({
       severity: "error",
-      summary: "error Submitted",
+      summary: "error",
       detail: formik.values.value,
     });
   };
   const formik = useFormik({
     initialValues: {
-      CategoryName: "",
-      Charity: "",
-      namedReplace: "",
+      categoryName: "",
+      charity: "",
+      namesReplace: "",
     },
     validate: (data) => {
       let errors = {};
-      if (!data.CategoryName) {
-        errors.CategoryName = "CategoryName is required.";
+      if (!data.categoryName) {
+        errors.categoryName = "categoryName is required.";
       }
-      if (!data.Charity) {
-        errors.Charity = "Charity is required.";
+      if (!data.charity) {
+        errors.charity = "charity is required.";
       }
       return errors;
     },
-    onSubmit: async (data) => {},
+    onSubmit: async (data) => {
+      // console.log(formik.values.namesReplace);
+      data.charity=data.charity.name=='yes'?1:0;
+      if(data.namesReplace.length>0)
+        data.namesReplace=data.namesReplace.map(x=>x.name);
+      console.log({data});    
+      try{
+        await axios.post(`http://localhost:8000/categories/`,data);
+        data&&show(data);
+      }
+      catch{
+        data&&showError(data);
+      }
+      formik.resetForm();
+      // props.setVisible(false);
+     },
   });
 
   const isFormFieldInvalid = (name) =>
@@ -56,6 +71,17 @@ export default function DialogAddCategory(props) {
       <small className="p-error">&nbsp;</small>
     );
   };
+
+
+      const panelFooterTemplate = () => {
+        const length = props.names ? props.names.length : 0;
+        return (
+            <div className="py-2 px-3">
+                <b>{length}</b> item{length > 1 ? 's' : ''} selected.
+            </div>
+        );
+    };
+    
   //   const footerContent = (
   //     <div>
   //       <Button
@@ -84,7 +110,7 @@ export default function DialogAddCategory(props) {
         header="New category"
         visible={props.visible}
         style={{ width: "50vw" }}
-        onHide={() => props.setVisible(false)}
+        onHide={() => { props.setVisible(false); formik.resetForm(); }}
         breakpoints={{ "960px": "75vw", "641px": "100vw" }}
       >
         <div className="card flex justify-content-center">
@@ -97,10 +123,10 @@ export default function DialogAddCategory(props) {
               <span className="p-float-label">
                 <InputText
                   id="categoryName"
-                  name="CategoryName"
-                  value={formik.values.CategoryName}
+                  name="categoryName"
+                  value={formik.values.categoryName}
                   onChange={(e) => {
-                    formik.setFieldValue("CategoryName", e.target.value);
+                    formik.setFieldValue("categoryName", e.target.value);
                   }}
                 />
                 <label htmlFor="input_value">categoryName</label>
@@ -110,10 +136,10 @@ export default function DialogAddCategory(props) {
               <span className="p-float-label">
                 <Dropdown
                   id="charity"
-                  name="Charity"
-                  value={formik.values.Charity}
+                  name="charity"
+                  value={formik.values.charity}
                   onChange={(e) =>
-                    formik.setFieldValue("Charity", e.target.value)
+                    formik.setFieldValue("charity", e.target.value)
                   }
                   options={charityOptions}
                   optionLabel="name"
@@ -127,21 +153,27 @@ export default function DialogAddCategory(props) {
               <br />
               {/* <label>names replace separate by ,</label> */}
               <span className="p-float-label">
-                <InputText
-                  id="namedReplace"
-                  name="namedReplace"
-                  value={formik.values.namedReplace}
+                {/* <InputText
+                  id="namesReplace"
+                  name="namesReplace"
+                  value={formik.values.namesReplace}
                   onChange={(e) => {
-                    formik.setFieldValue("namedReplace", e.target.value);
+                    formik.setFieldValue("namesReplace", e.target.value);
                   }}
-                />
+                /> */}
+                <MultiSelect id="namesReplace"
+                  name="namesReplace" value={formik.values.namesReplace}
+                  onChange={(e) => {
+                    formik.setFieldValue("namesReplace", e.target.value);
+                  }} options={props.names} optionLabel="name" 
+                filter placeholder="" maxSelectedLabels={2}  display="chip" panelFooterTemplate={panelFooterTemplate} className="w-full md:w-20rem" />
                 {/* multy select with props.names */}
-                <label htmlFor="input_value">namesReplace separated by ,</label>
+                <label htmlFor="input_value">namesReplace</label>
               </span>
               <br />
               <br />
-              {getFormErrorMessage("CategoryName")}
-              {getFormErrorMessage("Charity")}
+              {getFormErrorMessage("categoryName")}
+              {getFormErrorMessage("charity")}
               <Button type="submit" label="create" />
             </form>
           </Card>
