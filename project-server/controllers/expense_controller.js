@@ -31,8 +31,8 @@ exports.getExpenseById = async(req, res) => {
 
 exports.getExpense = async(req, res) => {
   const fid = req.params.id;
-  const month = req.body.month;
-  const year = req.body.year;
+  const month = req.query.month;
+  const year = req.query.year;
   if(!fid) 
     return res.status(400).json({message: 'not entried id'});
   const expensesPrice = await ExpenseDB.getExpense(fid,month,year);
@@ -48,7 +48,7 @@ exports.getExpense = async(req, res) => {
       expenseDic[categoryName]=price;
     totalPrice+=price;
   });
-  expenseDic["totalPrice"]=totalPrice;
+  // expenseDic["totalPrice"]=totalPrice;
   // console.log(expenseDic);
   if(expenseDic) 
     res.send(expenseDic);
@@ -58,9 +58,9 @@ exports.getExpense = async(req, res) => {
 
 exports.getExpenseCategory = async(req, res) => {
   const fid = req.params.id;
-  const month = req.body.month;
-  const year = req.body.year;
-  const categoryName = req.body.categoryName;
+  const month = req.query.month;
+  const year = req.query.year;
+  const categoryName = req.query.categoryName;
   const categoryId = await CategoryDB.getCategoryId(categoryName);
   console.log(categoryId);
   if(!fid) 

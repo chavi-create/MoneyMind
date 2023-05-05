@@ -12,9 +12,6 @@ import UsersPermissions from './component/permissions/UsersPermissions';
 import PermissionsTable from './component/permissions/PermissionsTable';
 import CustomersTable from './component/manager/customers/CustomersTable';
 import AddCategory from './component/manager/categories/AddCategory';
-// import CategoryChart from './component/manager/charts/CategoryChart';
-// import CityChart from './component/manager/charts/CityChart';
-// import AgeChart from './component/manager/charts/AgeChart';
 import StatData from './component/manager/charts/StatData';
 import UserProvider from './component/user/UserProvider'
 import LoginSignUp from './component/login/LoginSignUp';
@@ -22,7 +19,10 @@ import CategoryChart from './component/manager/charts/CategoryChart';
 import CityChart from './component/manager/charts/CityChart';
 import AgeChart from './component/manager/charts/AgeChart';
 import DialogAddCategory from './component/manager/categories/DialogAddCategory';
-import Charity from './expenses/charity';
+import Charity from './component/expenses/charity';
+import ExpensesView from './component/dataViewing/ExpensesView';
+import ExpensesTable from './component/dataViewing/ExpensesTable';
+import IncomesTable from './component/dataViewing/IncomesTable';
 
 function App() {
   const [userId, setUserId] = useState('');
@@ -63,8 +63,11 @@ function App() {
           <Route exact path='/cityChart' element={<CityChart />}></Route>
           <Route exact path='/ageChart' element={<AgeChart />}></Route>
           <Route exact path='/charts' element={<StatData />}></Route>
-        </Routes> :
-          {/* // <Login setUserId={setUserIdCallback} /> */}
+          <Route exact path='/expensesView' element={<ExpensesView />}></Route>
+          <Route exact path='/expensesTable' element={<ExpensesTable />}></Route>
+          <Route exact path='/incomesTable' element={<IncomesTable />}></Route>
+        </Routes> 
+          {/* // :<Login setUserId={setUserIdCallback} /> */}
           {/* <LoginSignUp setUserId={setUserIdCallback}></LoginSignUp> */}
         {/* } */}
       </UserProvider>

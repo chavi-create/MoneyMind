@@ -14,7 +14,7 @@ const getExpense = async(_id,_month,_year)=>{
 }
 
 const getExpenseCategory = async(fid,_month,_year,cid)=>{
-    return await Expense.findAll({where: { familyId: fid, month: _month, year: _year, categoryId: cid } ,attributes:['price','generalDescription']});
+    return await Expense.findAll({where: { familyId: fid, month: _month, year: _year, categoryId: cid } ,attributes:['productName','price','generalDescription']});
 }
 
 const getExpenseByCategoryId = async(_id)=>{
