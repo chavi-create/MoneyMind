@@ -4,7 +4,7 @@ import { Column } from 'primereact/column';
 import { Card } from 'primereact/card';
 import { InputNumber } from 'primereact/inputnumber';
 import { Messages } from 'primereact/messages';
-import UseAxiosById from '../hooks/UseAxiosById';
+import UseAxiosById from '../../hooks/UseAxiosById';
 import axios from 'axios'
 
 export default function Charity() {

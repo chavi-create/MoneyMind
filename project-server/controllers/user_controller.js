@@ -31,34 +31,48 @@ exports.createUserHead = async (req, res, _familyId) => {
   const userToInsert = { identity: id, firstName: fName, familyId: _familyId, familyHead: 1, permissionId: 2 };
   if (!userToInsert)
     return res.status(400).json({ message: 'not entried data' });
-    try{
-  const newUser = await UserDB.createNewUser(userToInsert);
-    
-  if (newUser) {
-    // res.status(201).json({message:'created user'});
-    console.log("newUser: " + newUser);
-    res.send(newUser);
-    // return newUser;
-  }
-  else
-    res.status(400).json({ message: 'error' });}
-    catch{
-      await FamilyDB.deleteFamily(_familyId);
-      res.status(400).json({ message: 'identity exist' });
+  try {
+    const newUser = await UserDB.createNewUser(userToInsert);
+
+    if (newUser) {
+      // res.status(201).json({message:'created user'});
+      console.log("newUser: " + newUser);
+      res.send(newUser);
+      // return newUser;
     }
+    else
+      res.status(400).json({ message: 'error' });
+  }
+  catch {
+    await FamilyDB.deleteFamily(_familyId);
+    res.status(400).json({ message: 'identity exist' });
+  }
 };
 
 //getById
+// exports.getUserById = async (req, res) => {
+//   const id = req.params.id;
+//   if (!id)
+//     return res.status(400).json({ message: 'not entried id' });
+//   const thisUser = await UserDB.getUserById(id);
+//   if (thisUser)
+//     res.send(thisUser);
+//   else
+//     res.status(400).json({ message: 'error' });
+// };
 exports.getUserById = async (req, res) => {
-  const id = req.params.id;
-  if (!id)
-    return res.status(400).json({ message: 'not entried id' });
-  const thisUser = await UserDB.getUserById(id);
-  if (thisUser)
-    res.send(thisUser);
-  else
-    res.status(400).json({ message: 'error' });
-};
+    const id = req.params.id;
+    if (!id)
+      return res.status(400).json({ message: 'not entried id' });
+    const thisUser = await UserDB.getUserWithFamilyName(id);
+    if (thisUser)
+    {
+      const { family, ...rest } = thisUser.dataValues
+      res.send({ ...rest, familyName: family.dataValues.familyName });
+    }
+    else
+      res.status(400).json({ message: 'error' });
+  };
 
 //login
 exports.login = async (req, res) => {
@@ -71,11 +85,21 @@ exports.login = async (req, res) => {
   const userWithFamily = await UserDB.login(id);
   if (userWithFamily) {
     const flag = userWithFamily.dataValues['family'].dataValues['password'] == password;
+    console.log({ userWithFamily });
 
+    const { family, ...rest } = userWithFamily.dataValues
 
     if (flag) {
-      const thisUser = await UserDB.getUserById(id);
-      res.send(thisUser);
+      // res.send({ ...rest, familyName: family.dataValues.familyName })
+
+      res.send({ ...rest});
+
+      // const thisUser = await UserDB.getUserById(id);
+      // // console.log('thisUser',thisUser);
+      // // thisUser.dataValues['user']['familyName']=userWithFamily.dataValues['family'].dataValues['familyName'];
+      // console.log('thisUser', thisUser);
+      // // res.send(thisUser);
+      // res.send(userWithFamily);
     }
     else
       res.status(400).json({ message: 'error password' });
