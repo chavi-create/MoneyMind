@@ -6,7 +6,7 @@ const UseAxiosGet = (url) => {
         `http://localhost:8000/${url}`
     )
 
-    useEffect(() => { console.log('error:😢', error) }, [error]);
+    useEffect(() => { console.log('error(get):😢', error) }, [error]);
     return { data, loading, refetch, error }
 }
 
