@@ -16,6 +16,7 @@ exports.createNewPermission_process = async(req,res)=>{
 
 exports.getPermissionsProcesses = async(req,res)=>{
   const permissions_processes = await Permission_processDB.getPermissionsProcesses();
+  console.log(permissions_processes)
   if(permissions_processes) 
     res.send(permissions_processes)
   else 
