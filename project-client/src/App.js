@@ -2,17 +2,17 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import SignUp from './Component/Login/SignUp';
-import Login from './Component/Login/Login';
-import Home from './Component/Home';
-import HomeManager from './Component/Manager/HomeManager'
-import UpdateDetails from './Component/userDetails/UpdateDetails';
-import UsersPermissions from './Component/permissions/UsersPermissions';
-import PermissionsTable from './Component/permissions/PermissionsTable';
-import CameraIncome from './Component/addDetails/CameraIncome';
-import ManuallyIncome from './Component/addDetails/ManuallyIncome';
-import CameraExpense from './Component/addDetails/CameraExpense';
-import ManuallyExpense from './Component/addDetails/ManuallyExpense';
+import SignUp from './component/login/SignUp';
+import Login from './component/login/Login';
+import Home from './component/Home';
+import HomeManager from './component/manager/HomeManager'
+import UpdateDetails from './component/userDetails/UpdateDetails';
+import UsersPermissions from './component/permissions/UsersPermissions';
+import PermissionsTable from './component/permissions/PermissionsTable';
+import CameraIncome from './component/addDetails/CameraIncome';
+import ManuallyIncome from './component/addDetails/ManuallyIncome';
+import CameraExpense from './component/addDetails/CameraExpense';
+import ManuallyExpense from './component/addDetails/ManuallyExpense';
 
 
 function App() {

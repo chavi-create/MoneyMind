@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';   
-import SimpleButton from './Home/SimpleButton';
-import ItemsButton from './Home/ItemsButton';
+import SimpleButton from './home/SimpleButton';
+import ItemsButton from './home/ItemsButton';
 import UseAxiosGet from '../hooks/UseAxiosGet';
 import {useNavigate} from 'react-router-dom';
 import UsersPermissions from './permissions/UsersPermissions';
