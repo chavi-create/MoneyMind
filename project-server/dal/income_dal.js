@@ -5,8 +5,8 @@ const createNewIncome = async(incomeToInsert)=>{
     return await Income.create(incomeToInsert);
 }
 
-const getIncomeById = async(id,_month,_year)=>{
-    return await Income.findAll({ where: { familyId: id ,month:_month,year:_year},attributes:['source','sumOfMoney'] });
+const getIncomeById = async(fid,_month,_year)=>{
+    return await Income.findAll({ where: { familyId: fid ,month:_month,year:_year},attributes:['source','sumOfMoney'] });
 }
 
 const getIncomesSum = async(id,_month,_year)=>{

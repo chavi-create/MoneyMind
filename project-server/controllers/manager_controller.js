@@ -29,12 +29,12 @@ exports.getUsersHead = async(req, res) => {
 const usersHead = await UserDB.getHeadUsers();
 var usersHeadList = []
 usersHead.forEach(e => {
-    const id = e.dataValues['family'].dataValues['idfamily']
+    const _id = e.dataValues['family'].dataValues['idfamily']
     const fName = e.dataValues['family'].dataValues['familyName'];
     const _city = e.dataValues['city'];
     const pele = e.dataValues['pelephone'];
     const _email = e.dataValues['email'];
-    usersHeadList.push({idfamily:id,familyName:fName,city:_city,pelephone:pele,email:_email})
+    usersHeadList.push({id:_id,familyName:fName,city:_city,pelephone:pele,email:_email})
 });
 if(usersHeadList) 
     // console.log(usersEmail);
@@ -85,10 +85,10 @@ const birthdates = await UserDB.getBirthdate();
 var agesDic = {};
 birthdates.forEach(e => { 
     var age = calculateAge(e.dataValues['birthdate']);
-    if((Math.round(age/10)) in agesDic)
-    agesDic[(Math.round(age/10))]+=1;  
+    if((Math.round(age/10)*10) in agesDic)
+    agesDic[(Math.round(age/10)*10)]+=1;  
     else
-    agesDic[(Math.round(age/10))]=1; 
+    agesDic[(Math.round(age/10)*10)]=1; 
 });
 if(agesDic) 
     res.send(agesDic);
