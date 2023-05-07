@@ -91,13 +91,8 @@ export default function PieChartDemo() {
     }, [chartKeys, chartValues]);
 
     const fetchTable = (index) => {
-<<<<<<< HEAD
         axios.get(`http://localhost:8000/expenses/expense_category/${user.familyId}`,
             { params: { month: date.getMonth()+1, year: date.getFullYear(), categoryName: chartKeys[index] } })
-=======
-        axios.get(`http://localhost:8000/expenses/expense_category/${1}`,
-            { params: { month: 1, year: 2023, categoryName: chartKeys[index] } })
->>>>>>> b1b0eef461201020ee284a90837dd053d51ff6e5
             .then(data => {
                 console.log(data.data);
                 navigate('/expensesTable', { state: data.data });
@@ -109,7 +104,6 @@ export default function PieChartDemo() {
 
     return (
         <div className="card flex justify-content-center">
-<<<<<<< HEAD
             <Card className="md:w-25rem">
                 <h2>expenses</h2>
                 <div className="card flex justify-content-center">
@@ -122,15 +116,6 @@ export default function PieChartDemo() {
                     plugins={[ChartDataLabels]}
                     className="w-full md:w-30rem" />}
             </Card>
-=======
-            <h2>expenses</h2>
-            <Chart
-                type="pie"
-                data={chartData}
-                options={chartOptions}
-                plugins={[ChartDataLabels]}
-                className="w-full md:w-30rem" />
->>>>>>> b1b0eef461201020ee284a90837dd053d51ff6e5
         </div>
     )
 }
