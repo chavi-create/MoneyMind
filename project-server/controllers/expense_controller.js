@@ -111,9 +111,9 @@ exports.getCharity = async(req, res) => {
 };
 
 exports.getExpensesPrice = async(req, res) => {
-  const fid = req.params.id;cd
-  const month = req.body.month;
-  const year = req.body.year;
+  const fid = req.params.id;
+  const month = req.query.month;
+  const year = req.query.year;
   if(!fid) 
     return res.status(400).json({message: 'not entried id'});
   const incomesSum = await ExpenseDB.getExpensesPrice(fid,month,year);

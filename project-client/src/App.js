@@ -23,6 +23,7 @@ import Charity from './component/expenses/charity';
 import ExpensesView from './component/dataViewing/ExpensesView';
 import ExpensesTable from './component/dataViewing/ExpensesTable';
 import IncomesTable from './component/dataViewing/IncomesTable';
+import CurrentWatch from './component/watching/CurrentWatch';
 
 function App() {
   const [userId, setUserId] = useState('');
@@ -57,6 +58,11 @@ function App() {
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
           <Route exact path='/Charity' element={<Charity />}></Route>
+<<<<<<< HEAD
+          <Route exact path='/CurrentWatch' element={<CurrentWatch />}></Route>
+        </Routes>
+      
+=======
           <Route exact path='/categories' element={<AddCategory />}></Route>
           <Route exact path='/dialogCategory' element={<DialogAddCategory />}></Route>
           <Route exact path='/categoryChart' element={<CategoryChart />}></Route>
@@ -71,6 +77,7 @@ function App() {
           {/* <LoginSignUp setUserId={setUserIdCallback}></LoginSignUp> */}
         {/* } */}
       </UserProvider>
+>>>>>>> 0b639c13770d2de692867ca06176ddf95fc48185
     </>
   );
 }
