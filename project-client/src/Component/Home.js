@@ -40,15 +40,21 @@ function Home() {
           <br />
           <br />
           <br />
-          <ItemsButton label="view details" items={items2} />
+          <ItemsButton label="view details" items={items2} onClick={() => {
+            navigate('/CurrentWatch');
+          }}/>
           <br />
           <br />
           <br />
-          <Button label="add income" />
+          <Button label="add income" onClick={() => {
+            navigate('/CameraIncome');
+          }}/>
           <br />
           <br />
           <br />
-          <Button label="add expense" />
+          <Button label="add expense" onClick={() => {
+            navigate('/CameraExpense');
+          }}/>
           <br />
           <br />
           <br />

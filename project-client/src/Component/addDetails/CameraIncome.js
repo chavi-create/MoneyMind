@@ -14,9 +14,7 @@ import { TabView, TabPanel } from 'primereact/tabview';
 const CameraIncome = () => {
     const camera = useRef(null);
     const [image, setImage] = useState(null);
-
-    // const navigate = useNavigate();
-
+    const navigate = useNavigate();
 
 
     //עד הרטורן- קשור להעלת קבצים מהמחשב-זה מלאאא
@@ -106,6 +104,9 @@ const CameraIncome = () => {
 
     return (
         <Card title="Take a picture of the income 📸" style={{ width: '350px' }}>
+            <Button label="Manually Income" onClick={() => {
+                navigate('/ManuallyIncome');
+            }} /><br /><br />
             <TabView>
                 <TabPanel header="By camera" leftIcon="pi pi-camera">
                     <p className="m-0">
