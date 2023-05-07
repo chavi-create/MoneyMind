@@ -24,6 +24,10 @@ import ExpensesView from './component/dataViewing/ExpensesView';
 import ExpensesTable from './component/dataViewing/ExpensesTable';
 import IncomesTable from './component/dataViewing/IncomesTable';
 import CurrentWatch from './component/watching/CurrentWatch';
+import CameraIncome from './component/addDetails/CameraIncome';
+import ManuallyIncome from './component/addDetails/ManuallyIncome';
+import CameraExpense from './component/addDetails/CameraExpense';
+import ManuallyExpense from './component/addDetails/ManuallyExpense';
 
 function App() {
   const [userId, setUserId] = useState('');
@@ -57,12 +61,12 @@ function App() {
           <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
           <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
           <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
+          <Route exact path='/CameraIncome' element={<CameraIncome />}></Route>
+          <Route exact path='/ManuallyIncome' element={<ManuallyIncome />}></Route>
+          <Route exact path='/CameraExpense' element={<CameraExpense />}></Route>
+          <Route exact path='/ManuallyExpense' element={<ManuallyExpense />}></Route>
           <Route exact path='/Charity' element={<Charity />}></Route>
-<<<<<<< HEAD
           <Route exact path='/CurrentWatch' element={<CurrentWatch />}></Route>
-        </Routes>
-      
-=======
           <Route exact path='/categories' element={<AddCategory />}></Route>
           <Route exact path='/dialogCategory' element={<DialogAddCategory />}></Route>
           <Route exact path='/categoryChart' element={<CategoryChart />}></Route>
@@ -77,7 +81,6 @@ function App() {
           {/* <LoginSignUp setUserId={setUserIdCallback}></LoginSignUp> */}
         {/* } */}
       </UserProvider>
->>>>>>> 0b639c13770d2de692867ca06176ddf95fc48185
     </>
   );
 }

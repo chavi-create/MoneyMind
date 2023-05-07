@@ -118,6 +118,7 @@ export default function SignUp() {
                     {getFormErrorMessage('FamilyName')}
                     {getFormErrorMessage('Password')}
                     <Button type="submit" label="Login" />
+                    
                 </form>
             </Card>
         </div>
