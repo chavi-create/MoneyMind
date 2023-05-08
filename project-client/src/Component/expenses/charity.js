@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Card } from 'primereact/card';
 import { InputNumber } from 'primereact/inputnumber';
 import { Messages } from 'primereact/messages';
-import UseAxiosById from '../../hooks/UseAxiosById';
+import UseAxiosById from '../hooks/UseAxiosById';
 import axios from 'axios'
-import UserContext from '../user/UserContext';
 
 export default function Charity() {
-  const user = useContext(UserContext);
+
   const [value, setValue] = useState('0');
   const [totalc, setTotalc] = useState(null);
   const [charity, setCharity] = useState(null);
@@ -28,14 +27,14 @@ export default function Charity() {
       console.log(dt.getMonth() + 1);
       console.log(dt.getFullYear());
 
-      const res = await axios.get(`http://localhost:8000/expenses/charity/${user.familyId}`, {
+      const res = await axios.get('http://localhost:8000/expenses/charity/1', {
         params: {
           month: 1,//dt.getMonth(),
           year: dt.getFullYear()
         }
 
       });
-      const incomes = await axios.get(`http://localhost:8000/incomes/totalsum/${user.familyId}`, {
+      const incomes = await axios.get('http://localhost:8000/incomes/totalsum/1', {
         params: {
           month: 1,//dt.getMonth(),
           year: dt.getFullYear()
