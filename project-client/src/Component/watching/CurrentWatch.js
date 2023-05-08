@@ -7,11 +7,16 @@ import axios from 'axios'
 export default function CurrentWatch() {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(new Date());
     const [incomes, setIncomes] = useState(null);
     const [expenses, setExpenses] = useState(null);
     const [charity, setCharity] = useState(null);
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     async function getData() {
         try {
@@ -48,12 +53,7 @@ export default function CurrentWatch() {
         }
       };
 
-    useEffect(() => {
-        getData();
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    // useEffect(()=>{if (date) },[date]);
         const data = {
             labels: [month[date.getMonth()]+"😁"],
             datasets: [
@@ -112,9 +112,9 @@ export default function CurrentWatch() {
             }
         };
 
-        setChartData(data);
-        setChartOptions(options);
-    }, []);
+    useEffect(() => {
+       getData();
+    }, [date]);
 
     return (        
         <div className="card">
@@ -122,7 +122,7 @@ export default function CurrentWatch() {
                 <p className="m-0">
                     <Calendar value={date} onChange={(e) => setDate(e.value)} view="month" dateFormat="mm/yy" />
                     <br /><br /><br />
-                    <Chart type="bar" data={chartData} options={chartOptions} />
+                    <Chart type="bar" data={data} options={options} />
                 </p>
             </Card>
         </div>
