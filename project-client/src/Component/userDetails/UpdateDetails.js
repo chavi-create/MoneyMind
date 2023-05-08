@@ -14,7 +14,7 @@ import { Country, State, City } from "country-state-city";
 import UserContext from "../user/UserContext";
 
 export default function UpdateDetails() {
-  const {user,setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const cities = City.getCitiesOfCountry("IL").map((city) => {
     return { name: city.name };
@@ -63,15 +63,15 @@ export default function UpdateDetails() {
       email: email ? email : user.email,
       city: selectedCity.name ? selectedCity.name : user.city,
     };
-    try{
-        axios.put(`http://localhost:8000/users/${user.identity}`, obj).then(data=>console.log(data));
-        setUser(obj);
-        localStorage.setItem("user",JSON.stringify(obj));
+    try {
+      axios
+        .put(`http://localhost:8000/users/${user.identity}`, obj)
+        .then((data) => console.log(data));
+      setUser({ ...user, ...obj });
+      localStorage.setItem("user", JSON.stringify({ ...user, ...obj }));
+    } catch (err) {
+      console.log({ err });
     }
-    catch(err){
-      console.log({err});
-    }
-    
   };
 
   const selectedCityTemplate = (option, props) => {
@@ -139,7 +139,10 @@ export default function UpdateDetails() {
             <Calendar
               style={{ width: "180px" }}
               value={new Date(date)}
-              onChange={(e) => {console.log(e.value); setDate(e.value)}}
+              onChange={(e) => {
+                console.log(e.value);
+                setDate(e.value);
+              }}
               // mask="99/99/9999"
               // placeholder="00/00/0000"
               slotChar="dd/mm/yyyy"
