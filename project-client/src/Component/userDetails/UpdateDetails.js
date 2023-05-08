@@ -23,9 +23,9 @@ export default function UpdateDetails() {
 
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
-  const [identity, setIdentity] = useState("");
+  // const [identity, setIdentity] = useState("");
   const [date, setDate] = useState(null);
-  const [pele, setPele] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [selectedCity, setSelectedCity] = useState(null);
 
@@ -34,8 +34,8 @@ export default function UpdateDetails() {
       console.log({ user });
       setFName(user.firstName);
       setLName(user.familyName);
-      setIdentity(user.identity);
-      setPele(user.pelephone);
+      // setIdentity(user.identity);
+      setPhone(user.phone);
       setEmail(user.email);
       setSelectedCity({ name: user.city });
       setDate(dayjs(user.birthdate).format("DD/MM/YYYY"));
@@ -50,16 +50,16 @@ export default function UpdateDetails() {
     console.log({ selectedCity });
   }, [selectedCity]);
 
-  const phone = "phone";
+  const phone2 = "phone";
 
   const update = (data) => {
     console.log("on submit", data);
     const obj = {
-      identity: identity ? identity : user.identity,
+      // identity: identity ? identity : user.identity,
       firstName: fName ? fName : user.firstName,
       // familyName: lName ? lName : user.familyName,
-      birthDate: date ? date : user.birthDate,
-      pelephone: pele ? pele : user.pelephone,
+      birthDate: date ? dayjs(date).format("DD/MM/YYYY") : user.birthDate,
+      phone: phone ? phone : user.phone,
       email: email ? email : user.email,
       city: selectedCity.name ? selectedCity.name : user.city,
     };
@@ -92,7 +92,7 @@ export default function UpdateDetails() {
 
   const handleChange = (event) => {
     const result = event.target.value.replace(/\D/g, "");
-    setPele(result);
+    setPhone(result);
   };
 
   return (
@@ -125,7 +125,7 @@ export default function UpdateDetails() {
               />
               <label htmlFor="username">Last name</label>
             </span>
-            <br />
+            {/* <br />
             <span className="p-float-label">
               <InputNumber
                 inputId="withoutgrouping"
@@ -134,8 +134,9 @@ export default function UpdateDetails() {
                 useGrouping={false}
               />
               <label htmlFor="withoutgrouping">Id</label>
-            </span>
+            </span> */}
             <br />
+            <span className="p-float-label">
             <Calendar
               style={{ width: "180px" }}
               value={new Date(date)}
@@ -147,20 +148,23 @@ export default function UpdateDetails() {
               // placeholder="00/00/0000"
               slotChar="dd/mm/yyyy"
             />
+            <label htmlFor="birthDate">BirthDate</label>
+            </span>
             <br />
-            <br />
-            {/* <InputMask
+            {/*<br />
+             <InputMask
                 style={{ width: '180px' }}
                 value={value3}
                 onChange={(e) => setValue3(e.target.value)}
                 mask={phone == 'phone' ? '99-9999999' : '000-000-0000'}
                 placeholder="00-000000"
               /> */}
+              <span className="p-float-label">
             <InputText
               style={{ width: "180px" }}
-              value={pele}
+              value={phone}
               onChange={handleChange}
-              mask={phone == "phone" ? "99-9999999" : "000-000-0000"}
+              mask={phone2 == "phone" ? "99-9999999" : "000-000-0000"}
               placeholder="00-000000"
               oninput={() =>
                 (this.value = this.value
@@ -168,9 +172,11 @@ export default function UpdateDetails() {
                   .replace(/(\..*)\./g, "$1"))
               }
             />
+            <label htmlFor="phone">Phone</label>
+            </span>
             <br />
-            <br />
-            {/* <label>Email</label> */}
+            {/*<br />
+             <label>Email</label> */}
             <span className="p-float-label">
               {/* <i class="pi pi-envelope" /> */}
               <InputText
@@ -195,7 +201,7 @@ export default function UpdateDetails() {
                   className="w-full md:w-14rem"
                 />
             //   </span> **:)*/}
-            <span className="fp-float-label">
+            <span className="p-float-label">
               <Dropdown
                 style={{ width: "180px" }}
                 value={selectedCity}
@@ -206,6 +212,7 @@ export default function UpdateDetails() {
                 filter
                 valueTemplate={selectedCityTemplate}
               />
+              <label htmlFor="city">City</label>
             </span>
             <br />
             <br />

@@ -7,7 +7,7 @@ module.exports = (sequelize,DataTypes)=>{
            familyId:{type:DataTypes.INTEGER,references:families,referencesKey:'idfamily',allowNull:false},
            identity:{type:DataTypes.BIGINT,allowNull:false},
            birthdate:{type:DataTypes.DATE},
-           pelephone:{type:DataTypes.STRING(15)},
+           phone:{type:DataTypes.STRING(15)},
            city:{type:DataTypes.STRING(15)},
            email:{type:DataTypes.STRING(20)},
            familyHead:{type:DataTypes.TINYINT,allowNull:false},
