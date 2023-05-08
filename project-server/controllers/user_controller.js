@@ -169,9 +169,11 @@ exports.updateUser = async (req, res) => {
   if (!id)
     return res.status(400).json({ message: 'not entried id' });
   const body = req.body;
+  console.log({body});
   if (!body)
     return res.status(400).json({ message: 'not entried body' });
   const flagUser = await UserDB.updateUserById(body, id);
+  console.log({flagUser});
   if (flagUser == 1)
     // res.send(flagUser);
     res.status(201).json({ message: 'successfully update user' });

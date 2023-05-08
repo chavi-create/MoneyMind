@@ -7,7 +7,7 @@ import { Calendar } from 'primereact/calendar';
 import { Card } from 'primereact/card';
 import UserContext from '../user/UserContext';
 
-export default function PieChartDemo() {
+export default function ExpensesView() {
     const navigate = useNavigate();
     const user = useContext(UserContext);
     const [date, setDate] = useState(new Date());

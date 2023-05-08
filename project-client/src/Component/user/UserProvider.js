@@ -28,6 +28,6 @@ const UserProvider = ({ children, userId }) => {
 //     console.log({ userInContext: user });
 //   }, [user]);
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{user,setUser}}>{children}</UserContext.Provider>;
 };
 export default UserProvider;
