@@ -28,9 +28,22 @@ import CameraIncome from './component/addDetails/CameraIncome';
 import ManuallyIncome from './component/addDetails/ManuallyIncome';
 import CameraExpense from './component/addDetails/CameraExpense';
 import ManuallyExpense from './component/addDetails/ManuallyExpense';
+import { MegaMenu } from 'primereact/megamenu';
+import { Button } from 'primereact/button';
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
   const [userId, setUserId] = useState('');
+  const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="50" className="mr-2"></img>;
+  const end = <>
+    <Button className="pi pi-user p-button-rounded" onClick={() => {
+      navigate('/updateDetails');
+    }} />
+    <Button className="pi pi-home p-button-rounded" onClick={() => {
+      navigate('/');
+    }} />
+  </>
 
   //localStorage:
   useEffect(() => {
@@ -49,35 +62,38 @@ function App() {
   }
   return (
     <>
+      <MegaMenu orientation="horizontal" start={start} end={end} />
       <UserProvider userId={userId}>
         {/* {userId == '' && <Login setUserId={setUserIdCallback}></Login>} */}
-        {userId ? 
-        <Routes>
-          {/* <Route exact path='/signup' element={<SignUp />}></Route> */}
-          {/* <Route exact path='/login' element={<Login setUserId={setUserIdCallback} />}></Route> */}
-          <Route exact path='/' element={<Home />}></Route>
-          <Route exact path='/homeManager' element={<HomeManager />}></Route>
-          <Route exact path='/customers' element={<CustomersTable />}></Route>
-          <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
-          <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
-          <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
-          <Route exact path='/CameraIncome' element={<CameraIncome />}></Route>
-          <Route exact path='/ManuallyIncome' element={<ManuallyIncome />}></Route>
-          <Route exact path='/CameraExpense' element={<CameraExpense />}></Route>
-          <Route exact path='/ManuallyExpense' element={<ManuallyExpense />}></Route>
-          <Route exact path='/Charity' element={<Charity />}></Route>
-          <Route exact path='/CurrentWatch' element={<CurrentWatch />}></Route>
-          <Route exact path='/categories' element={<AddCategory />}></Route>
-          <Route exact path='/dialogCategory' element={<DialogAddCategory />}></Route>
-          <Route exact path='/categoryChart' element={<CategoryChart />}></Route>
-          <Route exact path='/cityChart' element={<CityChart />}></Route>
-          <Route exact path='/ageChart' element={<AgeChart />}></Route>
-          <Route exact path='/charts' element={<StatData />}></Route>
-          <Route exact path='/expensesView' element={<ExpensesView />}></Route>
-          <Route exact path='/expensesTable' element={<ExpensesTable />}></Route>
-          <Route exact path='/incomesTable' element={<IncomesTable />}></Route>
-        </Routes> 
-           :
+        {userId ?
+
+          <Routes>
+
+            {/* <Route exact path='/signup' element={<SignUp />}></Route> */}
+            {/* <Route exact path='/login' element={<Login setUserId={setUserIdCallback} />}></Route> */}
+            <Route exact path='/' element={<Home />}></Route>
+            <Route exact path='/homeManager' element={<HomeManager />}></Route>
+            <Route exact path='/customers' element={<CustomersTable />}></Route>
+            <Route exact path='/updateDetails' element={<UpdateDetails />}></Route>
+            <Route exact path='/usersPermissions' element={<UsersPermissions />}></Route>
+            <Route exact path='/permissionsTable' element={<PermissionsTable />}></Route>
+            <Route exact path='/CameraIncome' element={<CameraIncome />}></Route>
+            <Route exact path='/ManuallyIncome' element={<ManuallyIncome />}></Route>
+            <Route exact path='/CameraExpense' element={<CameraExpense />}></Route>
+            <Route exact path='/ManuallyExpense' element={<ManuallyExpense />}></Route>
+            <Route exact path='/Charity' element={<Charity />}></Route>
+            <Route exact path='/CurrentWatch' element={<CurrentWatch />}></Route>
+            <Route exact path='/categories' element={<AddCategory />}></Route>
+            <Route exact path='/dialogCategory' element={<DialogAddCategory />}></Route>
+            <Route exact path='/categoryChart' element={<CategoryChart />}></Route>
+            <Route exact path='/cityChart' element={<CityChart />}></Route>
+            <Route exact path='/ageChart' element={<AgeChart />}></Route>
+            <Route exact path='/charts' element={<StatData />}></Route>
+            <Route exact path='/expensesView' element={<ExpensesView />}></Route>
+            <Route exact path='/expensesTable' element={<ExpensesTable />}></Route>
+            <Route exact path='/incomesTable' element={<IncomesTable />}></Route>
+          </Routes>
+          :
           //  <Login setUserId={setUserIdCallback} />
           <LoginSignUp setUserId={setUserIdCallback}></LoginSignUp>
         }
