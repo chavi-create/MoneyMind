@@ -15,7 +15,7 @@ const ManuallyIncome = () => {
   const [value, setValue] = useState();
   // const [value1, setValue1] = useState();
   const [value2, setValue2] = useState('');
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date());
   const [selectedType, setSelectedType] = useState(null);
 
   const types = [
@@ -27,8 +27,7 @@ const ManuallyIncome = () => {
 
   const selectType = (option, props) => {
     if (option) {
-      return (<div className="flex align-items-center"> {option.name}</div>);
-    }
+      return (<div className="flex align-items-center">{option.name}</div>);}
     return <span>{props.placeholder}</span>;
   };
 
@@ -39,7 +38,8 @@ const ManuallyIncome = () => {
   };
 
   let newDate = new Date();
-  
+  // setDate((newDate))
+
   const formik = useFormik({
     initialValues: {
       sumOfMoney: 0,
@@ -117,12 +117,12 @@ const ManuallyIncome = () => {
                   name="type"
                   // style={{ width: '180px' }}
                   value={formik.values.type}
-                  onChange={(e) => formik.setFieldValue("type", e.target.value.name)}
+                  onChange={(e) => formik.setFieldValue("type", e.target.value)}
+                  // onChange={(e) => formik.setFieldValue("type", e.target.value.name)}
                   options={types}
                   optionLabel="name"
                   placeholder="choose"
-                  filter
-                  valueTemplate={selectType}
+                  filter valueTemplate={selectType}
                 />
               </span>
               <br />
@@ -164,7 +164,6 @@ const ManuallyIncome = () => {
               <br /> <br />
               <span className="card flex justify-content-center">
 
-                
                 <Button type="submit" label="Send" style={{ width: '180px' }} />
               </span>
             </form>
