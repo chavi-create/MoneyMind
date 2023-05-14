@@ -66,6 +66,7 @@ const ManuallyIncome = () => {
     },
     onSubmit: async (data) => {
       console.log('data', data);
+      setDate((formik.values.date));
       // debugger
       var obj = {
         familyId: 1,
@@ -97,7 +98,7 @@ const ManuallyIncome = () => {
   return (
     <>
       <div className="card flex flex-wrap gap-3 p-fluid">
-        <Card title="Incomes- Manual entry 🤞🤘👍👌" style={{ width: '350px' }}>
+        <Card title="Incomes- Manual entry 🤞🤘👌" style={{ width: '350px' }}>
           <p className="m-0">
             <form onSubmit={formik.handleSubmit} className="flex flex-column gap-2">
               <span className="flex-auto">
@@ -154,7 +155,8 @@ const ManuallyIncome = () => {
                 id="incomeDate"
                 name="incomeDate"
                 style={{ width: '180px' }}
-                value={formik.values.date}
+                // value={formik.values.date}
+                value={date}
                 onChange={(e) => formik.setFieldValue("incomeDate", e.target.value)}
                 mask="99/99/9999"
                 placeholder="00/00/0000"

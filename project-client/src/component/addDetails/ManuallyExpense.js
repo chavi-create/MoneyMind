@@ -40,7 +40,7 @@ const ManuallyExpense = () => {
             purchaseDate: newDate.getDate(),
             paymentNumber: 0,
             mainPayment: 0,
-            categoryId: 0,
+            categoryName: '',
             productName: '',
             price: 0,
             generalDescription: ''
@@ -54,8 +54,8 @@ const ManuallyExpense = () => {
             // if (!data.mainPayment) {
             //     errors.mainPayment = 'mainPayment is required.';
             // }
-            if (!data.categoryId) {
-                errors.categoryId = 'categoryId is required.';
+            if (!data.categoryName) {
+                errors.categoryName = 'categoryName is required.';
             }
             if (!data.productName) {
                 errors.productName = 'productName is required.';
@@ -69,6 +69,7 @@ const ManuallyExpense = () => {
         },
         onSubmit: async (data) => {
             console.log('data', data);
+            setDate((formik.values.date));
             var obj = {
                 familyId: 1,
                 month: data.month,
@@ -76,7 +77,7 @@ const ManuallyExpense = () => {
                 purchaseDate: data.purchaseDate,
                 paymentNumber: data.paymentNumber,
                 mainPayment: 100,
-                categoryId: data.categoryId,
+                categoryName: data.categoryName,
                 productName: data.productName,
                 price: data.price,
                 generalDescription: data.generalDescription
@@ -125,7 +126,7 @@ const ManuallyExpense = () => {
     return (
         <>
             <div className="card flex flex-wrap gap-3 p-fluid">
-                <Card title="Expenses- Manual entry 🤞🤘👍👌" style={{ width: '350px' }}>
+                <Card title="Expenses- Manual entry 🤞🤘👌" style={{ width: '350px' }}>
                     <p className="m-0">
                         <form onSubmit={formik.handleSubmit} className="flex flex-column gap-2">
                             <label htmlFor="locale-user" className="font-bold block mb-2">product name</label>
@@ -156,7 +157,8 @@ const ManuallyExpense = () => {
                                 id="purchaseDate"
                                 name="purchaseDate"
                                 style={{ width: '180px' }}
-                                value={formik.values.date}
+                                // value={formik.values.date}
+                                value={date}
                                 onChange={(e) => formik.setFieldValue("purchaseDate", e.target.value)}
                                 mask="99/99/9999"
                                 placeholder="00/00/0000"
