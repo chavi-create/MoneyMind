@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import ItemsButton from "./home/ItemsButton";
+import ItemsButton from './home/ItemsButton'
 import { useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 import UserContext from "./user/UserContext";
 import { Button } from "primereact/button";
-import SimpleButton from './home/SimpleButton';
+// import SimpleButton from './home/SimpleButton';
 import UseAxiosGet from '../hooks/UseAxiosGet';
 import UsersPermissions from './permissions/UsersPermissions';
 import PermissionsTable from './permissions/PermissionsTable'
