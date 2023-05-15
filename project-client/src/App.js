@@ -28,9 +28,22 @@ import CameraIncome from './component/addDetails/CameraIncome';
 import ManuallyIncome from './component/addDetails/ManuallyIncome';
 import CameraExpense from './component/addDetails/CameraExpense';
 import ManuallyExpense from './component/addDetails/ManuallyExpense';
+import { MegaMenu } from 'primereact/megamenu';
+import { Button } from 'primereact/button';
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
   const [userId, setUserId] = useState('');
+  const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="50" className="mr-2"></img>;
+  const end = <>
+    <Button className="pi pi-user p-button-rounded" onClick={() => {
+      navigate('/updateDetails');
+    }} />
+    <Button className="pi pi-home p-button-rounded" onClick={() => {
+      navigate('/');
+    }} />
+  </>
 
   //localStorage:
   useEffect(() => {
@@ -49,6 +62,7 @@ function App() {
   }
   return (
     <>
+      <MegaMenu orientation="horizontal" start={start} end={end} />
       <UserProvider userId={userId}>
         {/* {userId == '' && <Login setUserId={setUserIdCallback}></Login>} */}
         {userId ? 

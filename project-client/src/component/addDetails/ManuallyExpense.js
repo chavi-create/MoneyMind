@@ -13,11 +13,16 @@ import UseAxiosById from "../../hooks/UseAxiosById";
 // import { useForm, Controller } from 'react-hook-form';
 
 const ManuallyExpense = () => {
+    const [categories, setCategories] = useState(null);
     const [value, setValue] = useState();
-    // const [value1, setValue1] = useState();
-    const [value2, setValue2] = useState('');
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(new Date());
     const [selectedType, setSelectedType] = useState(null);
+
+    const selectCategories = (option, props) => {
+        if (option) {
+          return (<div className="flex align-items-center">{option.categoryName}</div>);}
+        return <span>{props.placeholder}</span>;
+      };
 
     const toast = useRef(null);
 
@@ -35,7 +40,7 @@ const ManuallyExpense = () => {
             purchaseDate: newDate.getDate(),
             paymentNumber: 0,
             mainPayment: 0,
-            categoryId: 0,
+            categoryName: '',
             productName: '',
             price: 0,
             generalDescription: ''
@@ -49,8 +54,8 @@ const ManuallyExpense = () => {
             // if (!data.mainPayment) {
             //     errors.mainPayment = 'mainPayment is required.';
             // }
-            if (!data.categoryId) {
-                errors.categoryId = 'categoryId is required.';
+            if (!data.categoryName) {
+                errors.categoryName = 'categoryName is required.';
             }
             if (!data.productName) {
                 errors.productName = 'productName is required.';
@@ -64,6 +69,7 @@ const ManuallyExpense = () => {
         },
         onSubmit: async (data) => {
             console.log('data', data);
+            setDate((formik.values.date));
             var obj = {
                 familyId: 1,
                 month: data.month,
@@ -71,7 +77,7 @@ const ManuallyExpense = () => {
                 purchaseDate: data.purchaseDate,
                 paymentNumber: data.paymentNumber,
                 mainPayment: 100,
-                categoryId: data.categoryId,
+                categoryName: data.categoryName,
                 productName: data.productName,
                 price: data.price,
                 generalDescription: data.generalDescription
@@ -98,12 +104,29 @@ const ManuallyExpense = () => {
     //     let aaa = await axios.delete(`http://localhost:8000/users/${identity}`);
     //     console.log("delete aaa: " + aaa);
     // }
+    async function getData() {
+        try {
+            const categories = await axios.get('http://localhost:8000/categories/'
+            );
 
+            console.log("categories", categories.data);
+            categories.data=categories.data.map((c)=>{return {name:c.categoryName,idcategory:c.idcategory}})
+            console.log(categories.data);
+            setCategories((categories.data));
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
 
     return (
         <>
             <div className="card flex flex-wrap gap-3 p-fluid">
-                <Card title="Expenses- Manual entry 🤞🤘👍👌" style={{ width: '350px' }}>
+                <Card title="Expenses- Manual entry 🤞🤘👌" style={{ width: '350px' }}>
                     <p className="m-0">
                         <form onSubmit={formik.handleSubmit} className="flex flex-column gap-2">
                             <label htmlFor="locale-user" className="font-bold block mb-2">product name</label>
@@ -134,7 +157,8 @@ const ManuallyExpense = () => {
                                 id="purchaseDate"
                                 name="purchaseDate"
                                 style={{ width: '180px' }}
-                                value={formik.values.date}
+                                // value={formik.values.date}
+                                value={date}
                                 onChange={(e) => formik.setFieldValue("purchaseDate", e.target.value)}
                                 mask="99/99/9999"
                                 placeholder="00/00/0000"
@@ -142,8 +166,7 @@ const ManuallyExpense = () => {
                             />
                             <br />
                             <span className="flex-auto">
-                                <label htmlFor="locale-user" className="font-bold block mb-2">payment number</label>
-                                {/* <Toast ref={toast} /> */}
+                                <label htmlFor="locale-user" className="font-bold block mb-2">payment number</label>                               
                                 <InputNumber inputId="locale-user" id="paymentNumber" name="paymentNumber"
                                     value={formik.values.paymentNumber}
                                     onChange={(e) => formik.setFieldValue("paymentNumber", e.value)}
@@ -151,14 +174,30 @@ const ManuallyExpense = () => {
                             </span>
                             {getFormErrorMessage("paymentNumber")}
                             <br /><br />
-                            <span className="flex-auto">
+                            <span className="fp-float-label">
+                                <label htmlFor="locale-user" className="font-bold block mb-2">category name</label>
+                                <Dropdown
+                                    id="categoryName"
+                                    name="categoryName"
+                                    // style={{ width: '180px' }}
+                                    // value={categories.categoryName}
+                                    value={formik.values.categoryName}
+                                    onChange={(e) => formik.setFieldValue("categories", e.target.value)}
+                                    // onChange={(e) => formik.setFieldValue("type", e.target.value.name)}
+                                    options={categories}
+                                    optionLabel="name"
+                                    placeholder="categories"
+                                    filter valueTemplate={selectCategories}
+                                />
+                            </span>
+                            {/* <span className="flex-auto">
                                 <label htmlFor="locale-user" className="font-bold block mb-2">category id</label>
                                 <InputNumber inputId="locale-user" id="categoryId" name="categoryId"
                                     value={formik.values.categoryId}
                                     onChange={(e) => formik.setFieldValue("categoryId", e.value)}
                                 />
                             </span>
-                            {getFormErrorMessage("categoryId")}
+                            {getFormErrorMessage("categoryId")} */}
                             <br /><br />
                             <label htmlFor="locale-user" className="font-bold block mb-2">general description</label>
                             <span className="p-float-label">

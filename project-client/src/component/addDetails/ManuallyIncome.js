@@ -15,7 +15,7 @@ const ManuallyIncome = () => {
   const [value, setValue] = useState();
   // const [value1, setValue1] = useState();
   const [value2, setValue2] = useState('');
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date());
   const [selectedType, setSelectedType] = useState(null);
 
   const types = [
@@ -27,8 +27,7 @@ const ManuallyIncome = () => {
 
   const selectType = (option, props) => {
     if (option) {
-      return (<div className="flex align-items-center"> {option.name}</div>);
-    }
+      return (<div className="flex align-items-center">{option.name}</div>);}
     return <span>{props.placeholder}</span>;
   };
 
@@ -39,7 +38,8 @@ const ManuallyIncome = () => {
   };
 
   let newDate = new Date();
-  
+  // setDate((newDate))
+
   const formik = useFormik({
     initialValues: {
       sumOfMoney: 0,
@@ -66,6 +66,7 @@ const ManuallyIncome = () => {
     },
     onSubmit: async (data) => {
       console.log('data', data);
+      setDate((formik.values.date));
       // debugger
       var obj = {
         familyId: 1,
@@ -97,7 +98,7 @@ const ManuallyIncome = () => {
   return (
     <>
       <div className="card flex flex-wrap gap-3 p-fluid">
-        <Card title="Incomes- Manual entry 🤞🤘👍👌" style={{ width: '350px' }}>
+        <Card title="Incomes- Manual entry 🤞🤘👌" style={{ width: '350px' }}>
           <p className="m-0">
             <form onSubmit={formik.handleSubmit} className="flex flex-column gap-2">
               <span className="flex-auto">
@@ -117,12 +118,12 @@ const ManuallyIncome = () => {
                   name="type"
                   // style={{ width: '180px' }}
                   value={formik.values.type}
-                  onChange={(e) => formik.setFieldValue("type", e.target.value.name)}
+                  onChange={(e) => formik.setFieldValue("type", e.target.value)}
+                  // onChange={(e) => formik.setFieldValue("type", e.target.value.name)}
                   options={types}
                   optionLabel="name"
                   placeholder="choose"
-                  filter
-                  valueTemplate={selectType}
+                  filter valueTemplate={selectType}
                 />
               </span>
               <br />
@@ -154,7 +155,8 @@ const ManuallyIncome = () => {
                 id="incomeDate"
                 name="incomeDate"
                 style={{ width: '180px' }}
-                value={formik.values.date}
+                // value={formik.values.date}
+                value={date}
                 onChange={(e) => formik.setFieldValue("incomeDate", e.target.value)}
                 mask="99/99/9999"
                 placeholder="00/00/0000"
@@ -164,7 +166,6 @@ const ManuallyIncome = () => {
               <br /> <br />
               <span className="card flex justify-content-center">
 
-                
                 <Button type="submit" label="Send" style={{ width: '180px' }} />
               </span>
             </form>
