@@ -27,7 +27,7 @@ function Home() {
       <h2>You can do many operations:</h2>
       <div
         className="card flex justify-content-center"
-        style={{ padding: "200px" }}
+        // style={{ padding: "200px" }}
       >
         <Card className="md:w-25rem">
           <ItemsButton

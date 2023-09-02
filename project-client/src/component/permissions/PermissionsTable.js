@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-// import { CustomerService } from './service';
 import UseAxiosGet from '../../hooks/UseAxiosGet';
 
 
@@ -10,10 +9,6 @@ export default function PermissionsTable() {
   
   const{data,loading,refetch,error}=UseAxiosGet('permissions_processes/');
   useEffect(()=>{console.log('data',data);},[data])
-
-  // useEffect(() => {
-  //   CustomerService.getCustomersMedium().then((data) => setCustomers(data));
-  // }, []);
 
   const headerTemplate = (data) => {
     return (
